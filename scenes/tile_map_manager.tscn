@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://08f80gfja1f5"]
+
+[ext_resource type="Texture2D" uid="uid://cxoejlnfwkskr" path="res://assets/tiles/地图块.png" id="1_hiprr"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mn47b"]
+texture = ExtResource("1_hiprr")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_ki2or"]
+sources/0 = SubResource("TileSetAtlasSource_mn47b")
+
+[node name="TileMapManager" type="Node2D"]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_ki2or")
