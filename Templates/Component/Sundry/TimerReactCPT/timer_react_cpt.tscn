@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxq11shxb5tuk"]
+
+[ext_resource type="Script" uid="uid://bqm3tb3aqkjmg" path="res://Templates/Component/Sundry/TimerReactCPT/timer_react_cpt.gd" id="1_yg5au"]
+
+[node name="TimerReactCPT" type="Node"]
+script = ExtResource("1_yg5au")
+
+[node name="Timer" type="Timer" parent="."]

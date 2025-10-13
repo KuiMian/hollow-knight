@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3a1hjki5r44q"]
+
+[ext_resource type="Script" uid="uid://bu7fijow6fsj" path="res://Templates/Component/AnimationManager/animation_manager.gd" id="1_qe6sj"]
+
+[node name="AnimationManager" type="Node"]
+script = ExtResource("1_qe6sj")
