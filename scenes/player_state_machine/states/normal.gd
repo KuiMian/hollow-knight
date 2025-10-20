@@ -7,5 +7,6 @@ func Update_phy(_delta: float):
 	player._physics_process4normal(_delta)
 
 func get_next_state_str() -> String:
+	var player := get_actor()
 	@warning_ignore("incompatible_ternary")
-	return "Dash" if Input.is_action_just_pressed("dash") else self.name
+	return "Dash" if Input.is_action_just_pressed("dash") and player.can_dash else self.name

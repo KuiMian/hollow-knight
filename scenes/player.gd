@@ -35,12 +35,13 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	player_state_machine.process_phy_update(delta)
 	move_and_slide()
-	print(velocity)
 
 func _physics_process4normal(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+	else:
+		can_dash = true
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():

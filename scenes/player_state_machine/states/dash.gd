@@ -4,6 +4,7 @@ class_name Dash
 
 func Enter():
 	var player := get_actor()
+	player.can_dash = false
 	player.dash()
 
 func Exit():
