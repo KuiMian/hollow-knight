@@ -1,18 +1,43 @@
 extends CharacterBody2D
+class_name Player
 
 const JUMP_VELOCITY := -400.0
 const ACCELERATION := 180
 const MAX_SPEED := 210
 const SHORT_JUMP_FACTOR := 8
 const FRICTION_FACTOR := 2 * ACCELERATION
+const MAXDASHSPEED := 400
 
 @onready var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var sprite_area: Area2D = $SpriteArea
+
+@onready var player_state_machine: PlayerStateMachine = $PlayerStateMachine
+
+var direction: float = 1.0
+var last_facing_direction: int = 1
+
+var can_dash := true
+
+
+func _ready() -> void:
+	# 注入宿主
+	player_state_machine.actor = self
+	for player_state in player_state_machine.get_children():
+		(player_state as PlayerState).actor = self
+
+
+func _process(delta: float) -> void:
+	player_state_machine.process_update(delta)
 
 
 func _physics_process(delta: float) -> void:
+	player_state_machine.process_phy_update(delta)
+	move_and_slide()
+	print(velocity)
+
+func _physics_process4normal(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -26,7 +51,7 @@ func _physics_process(delta: float) -> void:
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("move_left", "move_right")
+	direction = Input.get_axis("move_left", "move_right")
 
 	#if direction:
 		#velocity.x += direction * ACCELERATION * delta
@@ -42,10 +67,23 @@ func _physics_process(delta: float) -> void:
 	var acceleration = ACCELERATION if sign(direction) == sign(velocity.x) else FRICTION_FACTOR
 	velocity.x = move_toward(velocity.x, target_speed, acceleration * delta)
 
-	move_and_slide()
-	
+	update_facing_direction()
 	update_animation()
-	check_facing_direction(direction)
+
+func dash() -> void:
+	var dash_direction: int
+	if direction != 0:
+		dash_direction = sign(direction)
+	else:
+		dash_direction = last_facing_direction
+	
+	velocity.x = dash_direction * MAXDASHSPEED
+	velocity.y = 0
+	
+	#var dash_finish := func(): velocity.x = 0
+	#animation_player.animation_finished.connect(dash_finish)
+	animation_player.play("dash")
+	#animation_player.animation_finished.disconnect(dash_finish)
 
 
 func update_animation() -> void:
@@ -55,6 +93,10 @@ func update_animation() -> void:
 		animation_player.play("move" if velocity.x != 0 else "idle")
 
 
-func check_facing_direction(direction: float) -> void:
+func update_facing_direction() -> void:
 	if direction != 0:
-		sprite_2d.flip_h = direction < 0
+		sprite_area.scale.x = sign(direction)
+		last_facing_direction = sign(direction)
+
+func reset_velocitiy() -> void:
+	velocity = Vector2.ZERO

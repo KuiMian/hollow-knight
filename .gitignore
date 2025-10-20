@@ -2,6 +2,7 @@
 .godot/
 .nomedia
 assets/
+insight.txt
 
 # Godot-specific ignores
 .import/
