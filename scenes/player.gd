@@ -6,7 +6,8 @@ const ACCELERATION := 180
 const MAX_SPEED := 210
 const SHORT_JUMP_FACTOR := 8
 const FRICTION_FACTOR := 2 * ACCELERATION
-const MAXDASHSPEED := 400
+const MAXDASHSPEED := 300
+const SECOND_JUMP_VELOCITY := JUMP_VELOCITY
 
 @onready var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -20,6 +21,9 @@ var last_facing_direction: int = 1
 
 var can_dash := true
 
+var can_double_jump := true
+@export var is_double_jumping := false
+
 
 func _ready() -> void:
 	# 注入宿主
@@ -29,6 +33,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	print(is_double_jumping)
 	player_state_machine.process_update(delta)
 
 
@@ -42,10 +47,16 @@ func _physics_process4normal(delta: float) -> void:
 		velocity += get_gravity() * delta
 	else:
 		can_dash = true
+		can_double_jump = true
 
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+	if Input.is_action_just_pressed("jump"):
+		if is_on_floor():
+			velocity.y = JUMP_VELOCITY
+		elif can_double_jump:
+			is_double_jumping = true
+			can_double_jump = false
+			velocity.y = SECOND_JUMP_VELOCITY
 	
 	if velocity.y < 0 and not Input.is_action_pressed("jump"):
 		velocity.y += SHORT_JUMP_FACTOR * gravity * delta
@@ -89,7 +100,10 @@ func dash() -> void:
 
 func update_animation() -> void:
 	if not is_on_floor():
-		animation_player.play("jump" if velocity.y > 0 else "fall")
+		if is_double_jumping:
+			animation_player.play("double_jump")
+		else:
+			animation_player.play("jump" if velocity.y > 0 else "fall")
 	else:
 		animation_player.play("move" if velocity.x != 0 else "idle")
 
