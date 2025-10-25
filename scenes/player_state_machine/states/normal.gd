@@ -8,5 +8,13 @@ func Update_phy(_delta: float):
 
 func get_next_state_str() -> String:
 	var player := get_actor()
-	@warning_ignore("incompatible_ternary")
-	return "Dash" if Input.is_action_just_pressed("dash") and player.can_dash else self.name
+	
+	if Input.is_action_just_pressed("dash") and player.can_dash:
+		next_state_str = "Dash"
+	elif Input.is_action_just_pressed("attack"):
+		next_state_str = "Attack"
+	else:
+		next_state_str = self.name
+	
+	return next_state_str
+	

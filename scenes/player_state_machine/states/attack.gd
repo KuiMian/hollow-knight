@@ -1,21 +1,23 @@
 extends PlayerState
-class_name Dash
+class_name Attack
 
+var normal_attack_1_flag := true
 
 func Enter():
 	var player := get_actor()
 	player.can_dash = false
-	player.enter_dash()
+	player.enter_attack(normal_attack_1_flag)
+	normal_attack_1_flag = !normal_attack_1_flag
+
 
 func Exit():
 	var player := get_actor()
-	player.exit_dash()
-
+	player.exit_attack()
 
 func get_next_state_str() -> String:
 	var player := get_actor()
 	
 	if player.animation_player.is_playing():
-		return "Dash"
+		return "Attack"
 	
 	return "Normal"

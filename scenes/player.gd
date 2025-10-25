@@ -41,15 +41,17 @@ func _physics_process(delta: float) -> void:
 	player_state_machine.process_phy_update(delta)
 	move_and_slide()
 
+#region normal state
+
 func _physics_process4normal(delta: float) -> void:
-	# Add the gravity.
+	# 施加重力
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	else:
 		can_dash = true
 		can_double_jump = true
 
-	# Handle jump.
+	# 跳跃/二段跳
 	if Input.is_action_just_pressed("jump"):
 		if is_on_floor():
 			velocity.y = JUMP_VELOCITY
@@ -58,31 +60,41 @@ func _physics_process4normal(delta: float) -> void:
 			can_double_jump = false
 			velocity.y = SECOND_JUMP_VELOCITY
 	
+	# 短跳
 	if velocity.y < 0 and not Input.is_action_pressed("jump"):
 		velocity.y += SHORT_JUMP_FACTOR * gravity * delta
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	direction = Input.get_axis("move_left", "move_right")
-
-	#if direction:
-		#velocity.x += direction * ACCELERATION * delta
-		#velocity.x = clamp(velocity.x, - MAX_SPEED, MAX_SPEED)
-		##velocity.x = direction * SPEED
-	#
-	## 此时反向移动无摩擦力
-	#else:
-		#velocity.x = move_toward(velocity.x, 0, FRICTION_FACTOR * delta)
-		##velocity.x = lerp(.0, velocity.x, pow(0.2, delta))
 	
+	# 左右移动
+	direction = Input.get_axis("move_left", "move_right")
 	var target_speed = direction * MAX_SPEED if direction != 0 else 0.0
 	var acceleration = ACCELERATION if sign(direction) == sign(velocity.x) else FRICTION_FACTOR
 	velocity.x = move_toward(velocity.x, target_speed, acceleration * delta)
-
+	
+	# 朝向处理
 	update_facing_direction()
+	
+	# normal state 的各种动画
 	update_animation()
 
-func dash() -> void:
+func update_facing_direction() -> void:
+	if direction != 0:
+		sprite_area.scale.x = sign(direction)
+		last_facing_direction = sign(direction)
+
+func update_animation() -> void:
+	if not is_on_floor():
+		if is_double_jumping:
+			animation_player.play("double_jump")
+		else:
+			animation_player.play("jump" if velocity.y > 0 else "fall")
+	else:
+		animation_player.play("move" if velocity.x != 0 else "idle")
+
+#endregion
+
+#region dash state
+
+func enter_dash() -> void:
 	var dash_direction: int
 	if direction != 0:
 		dash_direction = sign(direction)
@@ -98,20 +110,60 @@ func dash() -> void:
 	#animation_player.animation_finished.disconnect(dash_finish)
 
 
-func update_animation() -> void:
-	if not is_on_floor():
-		if is_double_jumping:
-			animation_player.play("double_jump")
-		else:
-			animation_player.play("jump" if velocity.y > 0 else "fall")
-	else:
-		animation_player.play("move" if velocity.x != 0 else "idle")
-
-
-func update_facing_direction() -> void:
-	if direction != 0:
-		sprite_area.scale.x = sign(direction)
-		last_facing_direction = sign(direction)
+func exit_dash() -> void:
+	reset_velocitiy()
 
 func reset_velocitiy() -> void:
 	velocity = Vector2.ZERO
+	
+#endregion dash state
+
+#region attack_up state
+
+func enter_attack(normal_attack_1_flag: bool) -> void:
+	if normal_attack_1_flag:
+		animation_player.play("normal_attack_1")  
+	else:
+		animation_player.play("normal_attack_2")
+
+
+func _physics_process4attack(delta: float) -> void:
+	# 施加重力
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+	else:
+		can_dash = true
+		can_double_jump = true
+	
+	# 左右移动
+	direction = Input.get_axis("move_left", "move_right")
+	var target_speed = direction * MAX_SPEED if direction != 0 else 0.0
+	var acceleration = ACCELERATION if sign(direction) == sign(velocity.x) else FRICTION_FACTOR
+	velocity.x = move_toward(velocity.x, target_speed, acceleration * delta)
+
+
+func exit_attack() -> void:
+	pass
+
+#endregion attack_up state
+
+#region attack_up state
+
+func enter_attack_up() -> void:
+	animation_player.play("attack_up")
+
+func exit_attack_up() -> void:
+	pass
+
+#endregion attack_up state
+
+
+#region attack_down state
+
+func enter_attack_down() -> void:
+	animation_player.play("attack_down")
+
+func exit_attack_down() -> void:
+	pass
+
+#endregion attack_down state
