@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://jtrxw21anjyo"]
+[gd_scene load_steps=33 format=3 uid="uid://jtrxw21anjyo"]
 
 [ext_resource type="Texture2D" uid="uid://b5bgrdbde1pba" path="res://assets/player/小骑士待机精灵表.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://1s0sytwemc44" path="res://scenes/player.gd" id="1_dqkch"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://c71nuasgkf8na" path="res://scenes/player_state_machine/states/attack_up.gd" id="15_a8ls1"]
 [ext_resource type="Script" uid="uid://bs33iqshrdj7u" path="res://scenes/player_state_machine/states/attack.gd" id="15_qfm1y"]
 [ext_resource type="Script" uid="uid://dlcndudifbhht" path="res://scenes/player_state_machine/states/attack_down.gd" id="16_a8ls1"]
+[ext_resource type="PackedScene" uid="uid://bui8vhonmrnth" path="res://scenes/player_state_machine/states/black_dash.tscn" id="18_fulsm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
 size = Vector2(8, 16)
@@ -1149,3 +1150,9 @@ metadata/_custom_type_script = "uid://cw434ej3iy2hq"
 [node name="AttackDown" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("16_a8ls1")
 metadata/_custom_type_script = "uid://cw434ej3iy2hq"
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="BlackDash" parent="." instance=ExtResource("18_fulsm")]

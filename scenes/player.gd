@@ -9,6 +9,9 @@ const FRICTION_FACTOR := 2 * ACCELERATION
 const MAXDASHSPEED := 300
 const SECOND_JUMP_VELOCITY := JUMP_VELOCITY
 
+@export var debug := true
+var time_count := 0.0
+
 @onready var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -24,8 +27,10 @@ var can_dash := true
 var can_double_jump := true
 @export var is_double_jumping := false
 
-var debug := true
-var time_count := 0.0
+@onready var attack_timer: Timer = $AttackTimer
+
+@onready var black_dash: BlackDash = $BlackDash
+
 
 func _ready() -> void:
 	# 注入宿主
@@ -41,7 +46,7 @@ func _process(delta: float) -> void:
 		time_count += delta
 		if time_count > 1:
 			time_count = 0
-			print(can_double_jump)
+			print(black_dash.has_black_dash)
 
 
 func _physics_process(delta: float) -> void:
@@ -111,11 +116,11 @@ func enter_dash() -> void:
 	velocity.x = dash_direction * MAXDASHSPEED
 	velocity.y = 0
 	
-	#var dash_finish := func(): velocity.x = 0
-	#animation_player.animation_finished.connect(dash_finish)
+	if black_dash.has_black_dash:
+		black_dash.spawn_black_dash()
+	
 	animation_player.play("dash")
-	#animation_player.animation_finished.disconnect(dash_finish)
-
+	black_dash.has_black_dash = !black_dash.has_black_dash
 
 func exit_dash() -> void:
 	reset_velocitiy()
@@ -128,6 +133,7 @@ func reset_velocitiy() -> void:
 #region attack_up state
 
 func enter_attack(normal_attack_1_flag: bool) -> void:
+	attack_timer.start()
 	if normal_attack_1_flag:
 		animation_player.play("normal_attack_1")  
 	else:
@@ -157,6 +163,7 @@ func exit_attack() -> void:
 #region attack_up state
 
 func enter_attack_up() -> void:
+	attack_timer.start()
 	animation_player.play("attack_up")
 
 func exit_attack_up() -> void:
@@ -168,6 +175,7 @@ func exit_attack_up() -> void:
 #region attack_down state
 
 func enter_attack_down() -> void:
+	attack_timer.start()
 	animation_player.play("attack_down")
 
 func exit_attack_down() -> void:
