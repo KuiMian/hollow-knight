@@ -1108,6 +1108,8 @@ _data = {
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 2
 script = ExtResource("1_dqkch")
+debug = false
+has_black_dash = true
 
 [node name="SpriteArea" type="Area2D" parent="."]
 
@@ -1156,3 +1158,4 @@ wait_time = 0.2
 one_shot = true
 
 [node name="BlackDash" parent="." instance=ExtResource("18_fulsm")]
+position = Vector2(0, -8)

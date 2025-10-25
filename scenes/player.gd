@@ -30,6 +30,7 @@ var can_double_jump := true
 @onready var attack_timer: Timer = $AttackTimer
 
 @onready var black_dash: BlackDash = $BlackDash
+@export var has_black_dash := false
 
 
 func _ready() -> void:
@@ -46,7 +47,7 @@ func _process(delta: float) -> void:
 		time_count += delta
 		if time_count > 1:
 			time_count = 0
-			print(black_dash.has_black_dash)
+			print(black_dash.scale)
 
 
 func _physics_process(delta: float) -> void:
@@ -116,11 +117,12 @@ func enter_dash() -> void:
 	velocity.x = dash_direction * MAXDASHSPEED
 	velocity.y = 0
 	
-	if black_dash.has_black_dash:
+	if has_black_dash:
 		black_dash.spawn_black_dash()
-	
-	animation_player.play("dash")
-	black_dash.has_black_dash = !black_dash.has_black_dash
+		animation_player.play("black_dash")
+	else:
+		animation_player.play("dash")
+
 
 func exit_dash() -> void:
 	reset_velocitiy()
