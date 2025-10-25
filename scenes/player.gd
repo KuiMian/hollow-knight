@@ -24,6 +24,8 @@ var can_dash := true
 var can_double_jump := true
 @export var is_double_jumping := false
 
+var debug := true
+var time_count := 0.0
 
 func _ready() -> void:
 	# 注入宿主
@@ -33,8 +35,13 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	print(is_double_jumping)
 	player_state_machine.process_update(delta)
+	
+	if debug:
+		time_count += delta
+		if time_count > 1:
+			time_count = 0
+			print(can_double_jump)
 
 
 func _physics_process(delta: float) -> void:

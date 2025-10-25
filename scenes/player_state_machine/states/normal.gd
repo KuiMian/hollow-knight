@@ -12,7 +12,12 @@ func get_next_state_str() -> String:
 	if Input.is_action_just_pressed("dash") and player.can_dash:
 		next_state_str = "Dash"
 	elif Input.is_action_just_pressed("attack"):
-		next_state_str = "Attack"
+		if Input.is_action_pressed("look_up"):
+			next_state_str = "AttackUp"
+		elif !player.is_on_floor() and Input.is_action_pressed("look_down"):
+			next_state_str = "AttackDown"
+		else:
+			next_state_str = "Attack"
 	else:
 		next_state_str = self.name
 	

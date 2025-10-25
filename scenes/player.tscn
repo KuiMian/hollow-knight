@@ -110,8 +110,8 @@ tracks/6/keys = {
 
 [sub_resource type="Animation" id="Animation_a8ls1"]
 resource_name = "attack_down"
-length = 0.3
-step = 0.1
+length = 0.15
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -155,7 +155,7 @@ tracks/3/path = NodePath("SpriteArea/Sprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
+"times": PackedFloat32Array(0, 0.05, 0.1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [0, 1, 2]
@@ -199,8 +199,8 @@ tracks/6/keys = {
 
 [sub_resource type="Animation" id="Animation_oprun"]
 resource_name = "attack_up"
-length = 0.3
-step = 0.1
+length = 0.15
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -244,7 +244,7 @@ tracks/3/path = NodePath("SpriteArea/Sprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
+"times": PackedFloat32Array(0, 0.05, 0.1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [1, 2, 3]
@@ -912,8 +912,8 @@ tracks/6/keys = {
 
 [sub_resource type="Animation" id="Animation_y4r1p"]
 resource_name = "normal_attack_1"
-length = 0.3
-step = 0.1
+length = 0.15
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -957,7 +957,7 @@ tracks/3/path = NodePath("SpriteArea/Sprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
+"times": PackedFloat32Array(0, 0.05, 0.1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [0, 1, 2]
@@ -1001,8 +1001,8 @@ tracks/6/keys = {
 
 [sub_resource type="Animation" id="Animation_d2wvv"]
 resource_name = "normal_attack_2"
-length = 0.3
-step = 0.1
+length = 0.15
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1010,10 +1010,10 @@ tracks/0/path = NodePath("SpriteArea/Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("8_d2wvv"), ExtResource("8_d2wvv")]
+"values": [ExtResource("8_d2wvv")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -1046,7 +1046,7 @@ tracks/3/path = NodePath("SpriteArea/Sprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
+"times": PackedFloat32Array(0, 0.05, 0.1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [0, 1, 2]
