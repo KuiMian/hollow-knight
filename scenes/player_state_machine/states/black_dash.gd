@@ -11,6 +11,10 @@ func _ready() -> void:
 
 func spawn_black_dash() -> void:
 	#sprite_2d.show()
+	#animation_player.play("black_dash_BG")
+	#sprite_2d.hide()
+	
+	#sprite_2d.show()
 	animation_player.play("black_dash_BG")
 	#await animation_player.animation_finished
 	#sprite_2d.hide()
