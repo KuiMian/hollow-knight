@@ -8,6 +8,7 @@ const SHORT_JUMP_FACTOR := 8
 const FRICTION_FACTOR := 2 * ACCELERATION
 const MAXDASHSPEED := 300
 const SECOND_JUMP_VELOCITY := JUMP_VELOCITY
+const knockback_speed := 60
 
 @export var debug := true
 var time_count := 0.0
@@ -32,13 +33,21 @@ var can_double_jump := true
 @onready var black_dash: BlackDash = $BlackDash
 @export var has_black_dash := false
 
+@onready var hurt_box: PlayerHurtBox = $HurtBox
+@onready var attack_1_hit_box: PlayerHitBox = $Attack1HitBox
+@onready var attack_2_hit_box: PlayerHitBox = $Attack2HitBox
+@onready var attack_up_hit_box: PlayerHitBox = $AttackUpHitBox
+@onready var attack_down_hit_box: PlayerHitBox = $AttackDownHitBox
+
+
 
 func _ready() -> void:
-	# 注入宿主
+	# 注入依赖
 	player_state_machine.actor = self
 	for player_state in player_state_machine.get_children():
 		(player_state as PlayerState).actor = self
-
+	
+	_connect_signals()
 
 func _process(delta: float) -> void:
 	player_state_machine.process_update(delta)
@@ -47,8 +56,7 @@ func _process(delta: float) -> void:
 		time_count += delta
 		if time_count > 1:
 			time_count = 0
-			print(black_dash.scale)
-
+			print(hurt_box.get_child(0).disabled)
 
 func _physics_process(delta: float) -> void:
 	player_state_machine.process_phy_update(delta)
@@ -93,6 +101,9 @@ func update_facing_direction() -> void:
 	if direction != 0:
 		sprite_area.scale.x = sign(direction)
 		last_facing_direction = sign(direction)
+		
+		for box in get_tree().get_nodes_in_group("player_boxes"):
+			(box as Area2D).scale.x = sign(direction)
 
 func update_animation() -> void:
 	if not is_on_floor():
@@ -184,3 +195,36 @@ func exit_attack_down() -> void:
 	pass
 
 #endregion attack_down state
+
+#region hit & hurt boxa
+
+func _on_hurt_box_area_entered(_area: Area2D) -> void:
+	pass
+
+func _on_attack_1_hit_box_area_entered(_area: Area2D) -> void:
+	velocity.x -= sign(direction) * knockback_speed
+
+func _on_attack_2_hit_box_area_entered(_area: Area2D) -> void:
+	velocity.x -= sign(direction) * knockback_speed
+
+func _on_attack_up_hit_box_area_entered(_area: Area2D) -> void:
+	print("Attack")
+
+func _on_attack_down_hit_box_area_entered(_area: Area2D) -> void:
+	print("Attack")
+
+
+#endregion hit & hurt box
+
+
+#region utils
+
+func _connect_signals() -> void:
+	hurt_box.area_entered.connect(_on_hurt_box_area_entered)
+	attack_1_hit_box.area_entered.connect(_on_attack_1_hit_box_area_entered)
+	attack_2_hit_box.area_entered.connect(_on_attack_2_hit_box_area_entered)
+	attack_up_hit_box.area_entered.connect(_on_attack_up_hit_box_area_entered)
+	attack_down_hit_box.area_entered.connect(_on_attack_down_hit_box_area_entered)
+	
+
+#endregion utils

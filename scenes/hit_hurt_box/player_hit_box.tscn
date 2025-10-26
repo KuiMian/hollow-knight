@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://buv5bhiel5smt"]
+
+[ext_resource type="PackedScene" uid="uid://d07vusgkx4nvy" path="res://scenes/hit_hurt_box/hit_box.tscn" id="1_8321v"]
+[ext_resource type="Script" uid="uid://dy4twr0ecfw2m" path="res://scenes/hit_hurt_box/player_hit_box.gd" id="2_dpe4n"]
+
+[node name="PlayerHitBoxArea" instance=ExtResource("1_8321v")]
+script = ExtResource("2_dpe4n")

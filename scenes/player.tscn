@@ -18,8 +18,8 @@
 [ext_resource type="Script" uid="uid://bs33iqshrdj7u" path="res://scenes/player_state_machine/states/attack.gd" id="15_qfm1y"]
 [ext_resource type="Script" uid="uid://dlcndudifbhht" path="res://scenes/player_state_machine/states/attack_down.gd" id="16_a8ls1"]
 [ext_resource type="PackedScene" uid="uid://bui8vhonmrnth" path="res://scenes/player_state_machine/states/black_dash.tscn" id="18_fulsm"]
-[ext_resource type="PackedScene" uid="uid://ddxajo870fvv" path="res://scenes/hit_hurt_box/player_hurt_box_area.tscn" id="19_60mlk"]
-[ext_resource type="PackedScene" uid="uid://buv5bhiel5smt" path="res://scenes/hit_hurt_box/player_hit_box_area.tscn" id="20_i4ail"]
+[ext_resource type="PackedScene" uid="uid://ddxajo870fvv" path="res://scenes/hit_hurt_box/player_hurt_box.tscn" id="19_60mlk"]
+[ext_resource type="PackedScene" uid="uid://buv5bhiel5smt" path="res://scenes/hit_hurt_box/player_hit_box.tscn" id="20_i4ail"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
 size = Vector2(8, 16)
@@ -113,94 +113,46 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Attack1HitBoxArea/HitBox:polygon")
+tracks/7/path = NodePath("AttackDownHitBox/HitBox:disabled")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [PackedVector2Array(4, -26, 22, -24, 32, -20, 36, -16, 36, -10, 32, -6, 24, -4, 4, -4)]
+"update": 1,
+"values": [false]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Attack2HitBoxArea/HitBox:polygon")
+tracks/8/path = NodePath("AttackUpHitBox/HitBox:disabled")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [PackedVector2Array(6, -22, 24, -22, 34, -20, 38, -16, 38, -12, 34, -6, 22, -2, 6, -2)]
+"update": 1,
+"values": [true]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("AttackUpHitBoxArea/HitBox:polygon")
+tracks/9/path = NodePath("Attack2HitBox/HitBox:disabled")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [PackedVector2Array(-18, -6, 14, -18, 18, -22, 18, -34, 8, -48, -6, -48, -18, -34)]
+"update": 1,
+"values": [true]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("AttackDownPlayerHitBoxArea/HitBox:polygon")
+tracks/10/path = NodePath("Attack1HitBox/HitBox:disabled")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [PackedVector2Array(-16, -16, 18, -6, 18, 0, 12, 16, 6, 20, -6, 20, -16, 2)]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("AttackDownPlayerHitBoxArea/HitBox:disabled")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("AttackUpHitBoxArea/HitBox:disabled")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("Attack2HitBoxArea/HitBox:disabled")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/14/type = "value"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath("Attack1HitBoxArea/HitBox:disabled")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -209,7 +161,7 @@ tracks/14/keys = {
 
 [sub_resource type="Animation" id="Animation_a8ls1"]
 resource_name = "attack_down"
-length = 0.15
+length = 0.1
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -298,31 +250,31 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("AttackDownPlayerHitBoxArea/HitBox:polygon")
+tracks/7/path = NodePath("AttackDownHitBox/HitBox:disabled")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [PackedVector2Array(-16, -16, 18, -6, 18, 0, 12, 16, 6, 20, -6, 20, -16, 2)]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("AttackDownPlayerHitBoxArea/HitBox:disabled")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, true, true]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("AttackUpHitBox/HitBox:disabled")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("AttackUpHitBoxArea/HitBox:disabled")
+tracks/9/path = NodePath("Attack2HitBox/HitBox:disabled")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -334,7 +286,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Attack2HitBoxArea/HitBox:disabled")
+tracks/10/path = NodePath("Attack1HitBox/HitBox:disabled")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -343,22 +295,10 @@ tracks/10/keys = {
 "update": 1,
 "values": [true]
 }
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Attack1HitBoxArea/HitBox:disabled")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
 
 [sub_resource type="Animation" id="Animation_oprun"]
 resource_name = "attack_up"
-length = 0.15
+length = 0.1
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -447,19 +387,19 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("AttackUpHitBoxArea/HitBox:polygon")
+tracks/7/path = NodePath("Attack2HitBox/HitBox:disabled")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [PackedVector2Array(-18, -6, 14, -18, 18, -22, 18, -34, 8, -48, -6, -48, -18, -34)]
+"update": 1,
+"values": [true]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Attack2HitBoxArea/HitBox:disabled")
+tracks/8/path = NodePath("Attack1HitBox/HitBox:disabled")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -471,7 +411,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Attack1HitBoxArea/HitBox:disabled")
+tracks/9/path = NodePath("AttackDownHitBox/HitBox:disabled")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -483,22 +423,10 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("AttackDownPlayerHitBoxArea/HitBox:disabled")
+tracks/10/path = NodePath("AttackUpHitBox/HitBox:disabled")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("AttackUpHitBoxArea/HitBox:disabled")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
@@ -596,7 +524,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Attack2HitBoxArea/HitBox:disabled")
+tracks/7/path = NodePath("Attack2HitBox/HitBox:disabled")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -608,7 +536,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("AttackUpHitBoxArea/HitBox:disabled")
+tracks/8/path = NodePath("AttackUpHitBox/HitBox:disabled")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -620,7 +548,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("AttackDownPlayerHitBoxArea/HitBox:disabled")
+tracks/9/path = NodePath("AttackDownHitBox/HitBox:disabled")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -632,7 +560,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Attack1HitBoxArea/HitBox:disabled")
+tracks/10/path = NodePath("Attack1HitBox/HitBox:disabled")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -733,7 +661,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Attack2HitBoxArea/HitBox:disabled")
+tracks/7/path = NodePath("Attack2HitBox/HitBox:disabled")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -745,7 +673,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("AttackUpHitBoxArea/HitBox:disabled")
+tracks/8/path = NodePath("AttackUpHitBox/HitBox:disabled")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -757,7 +685,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("AttackDownPlayerHitBoxArea/HitBox:disabled")
+tracks/9/path = NodePath("AttackDownHitBox/HitBox:disabled")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -769,7 +697,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Attack1HitBoxArea/HitBox:disabled")
+tracks/10/path = NodePath("Attack1HitBox/HitBox:disabled")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -870,7 +798,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Attack2HitBoxArea/HitBox:disabled")
+tracks/7/path = NodePath("Attack2HitBox/HitBox:disabled")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -882,7 +810,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("AttackUpHitBoxArea/HitBox:disabled")
+tracks/8/path = NodePath("AttackUpHitBox/HitBox:disabled")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -894,7 +822,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("AttackDownPlayerHitBoxArea/HitBox:disabled")
+tracks/9/path = NodePath("AttackDownHitBox/HitBox:disabled")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -906,7 +834,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Attack1HitBoxArea/HitBox:disabled")
+tracks/10/path = NodePath("Attack1HitBox/HitBox:disabled")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -1007,7 +935,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Attack2HitBoxArea/HitBox:disabled")
+tracks/7/path = NodePath("Attack2HitBox/HitBox:disabled")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -1019,7 +947,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("AttackUpHitBoxArea/HitBox:disabled")
+tracks/8/path = NodePath("AttackUpHitBox/HitBox:disabled")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -1031,7 +959,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("AttackDownPlayerHitBoxArea/HitBox:disabled")
+tracks/9/path = NodePath("AttackDownHitBox/HitBox:disabled")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -1043,7 +971,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Attack1HitBoxArea/HitBox:disabled")
+tracks/10/path = NodePath("Attack1HitBox/HitBox:disabled")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -1144,7 +1072,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Attack2HitBoxArea/HitBox:disabled")
+tracks/7/path = NodePath("Attack2HitBox/HitBox:disabled")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -1156,7 +1084,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("AttackUpHitBoxArea/HitBox:disabled")
+tracks/8/path = NodePath("AttackUpHitBox/HitBox:disabled")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -1168,7 +1096,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("AttackDownPlayerHitBoxArea/HitBox:disabled")
+tracks/9/path = NodePath("AttackDownHitBox/HitBox:disabled")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -1180,7 +1108,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Attack1HitBoxArea/HitBox:disabled")
+tracks/10/path = NodePath("Attack1HitBox/HitBox:disabled")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -1281,7 +1209,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Attack2HitBoxArea/HitBox:disabled")
+tracks/7/path = NodePath("Attack2HitBox/HitBox:disabled")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -1293,7 +1221,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("AttackUpHitBoxArea/HitBox:disabled")
+tracks/8/path = NodePath("AttackUpHitBox/HitBox:disabled")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -1305,7 +1233,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("AttackDownPlayerHitBoxArea/HitBox:disabled")
+tracks/9/path = NodePath("AttackDownHitBox/HitBox:disabled")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -1317,7 +1245,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Attack1HitBoxArea/HitBox:disabled")
+tracks/10/path = NodePath("Attack1HitBox/HitBox:disabled")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -1419,7 +1347,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Attack2HitBoxArea/HitBox:disabled")
+tracks/7/path = NodePath("Attack2HitBox/HitBox:disabled")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -1431,7 +1359,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("AttackUpHitBoxArea/HitBox:disabled")
+tracks/8/path = NodePath("AttackUpHitBox/HitBox:disabled")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -1443,7 +1371,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("AttackDownPlayerHitBoxArea/HitBox:disabled")
+tracks/9/path = NodePath("AttackDownHitBox/HitBox:disabled")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -1455,7 +1383,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Attack1HitBoxArea/HitBox:disabled")
+tracks/10/path = NodePath("Attack1HitBox/HitBox:disabled")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -1467,7 +1395,7 @@ tracks/10/keys = {
 
 [sub_resource type="Animation" id="Animation_y4r1p"]
 resource_name = "normal_attack_1"
-length = 0.15
+length = 0.1
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -1556,19 +1484,19 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Attack1HitBoxArea/HitBox:polygon")
+tracks/7/path = NodePath("Attack2HitBox/HitBox:disabled")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [PackedVector2Array(4, -26, 22, -24, 32, -20, 36, -16, 36, -10, 32, -6, 24, -4, 4, -4)]
+"update": 1,
+"values": [true]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Attack2HitBoxArea/HitBox:disabled")
+tracks/8/path = NodePath("AttackUpHitBox/HitBox:disabled")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -1580,7 +1508,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("AttackUpHitBoxArea/HitBox:disabled")
+tracks/9/path = NodePath("AttackDownHitBox/HitBox:disabled")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -1592,22 +1520,10 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("AttackDownPlayerHitBoxArea/HitBox:disabled")
+tracks/10/path = NodePath("Attack1HitBox/HitBox:disabled")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Attack1HitBoxArea/HitBox:disabled")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
@@ -1616,7 +1532,7 @@ tracks/11/keys = {
 
 [sub_resource type="Animation" id="Animation_d2wvv"]
 resource_name = "normal_attack_2"
-length = 0.15
+length = 0.1
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -1705,19 +1621,19 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Attack2HitBoxArea/HitBox:polygon")
+tracks/7/path = NodePath("Attack1HitBox/HitBox:disabled")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [PackedVector2Array(6, -22, 24, -22, 34, -20, 38, -16, 38, -12, 34, -6, 22, -2, 6, -2)]
+"update": 1,
+"values": [true]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Attack1HitBoxArea/HitBox:disabled")
+tracks/8/path = NodePath("AttackUpHitBox/HitBox:disabled")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -1729,7 +1645,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("AttackUpHitBoxArea/HitBox:disabled")
+tracks/9/path = NodePath("AttackDownHitBox/HitBox:disabled")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -1741,22 +1657,10 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("AttackDownPlayerHitBoxArea/HitBox:disabled")
+tracks/10/path = NodePath("Attack2HitBox/HitBox:disabled")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Attack2HitBoxArea/HitBox:disabled")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
@@ -1798,6 +1702,7 @@ libraries = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_3vyb7")
 
@@ -1832,44 +1737,61 @@ wait_time = 0.2
 one_shot = true
 
 [node name="BlackDash" parent="." instance=ExtResource("18_fulsm")]
+visible = false
 position = Vector2(0, -8)
 
-[node name="HurtBoxArea" parent="." instance=ExtResource("19_60mlk")]
+[node name="HurtBox" parent="." groups=["player_boxes"] instance=ExtResource("19_60mlk")]
+collision_layer = 16
+collision_mask = 32
+metadata/_edit_lock_ = true
+
+[node name="HurtBox" parent="HurtBox" index="0"]
+polygon = PackedVector2Array(-4, 0, 4, 0, 4, -16, -4, -16)
+metadata/_edit_lock_ = true
+
+[node name="Attack1HitBox" parent="." groups=["player_boxes"] instance=ExtResource("20_i4ail")]
 collision_layer = 8
 collision_mask = 64
 metadata/_edit_lock_ = true
 
-[node name="HurtBox" type="CollisionPolygon2D" parent="HurtBoxArea"]
-polygon = PackedVector2Array(-4, 0, -4, -16, 4, -16, 4, 0)
-metadata/_edit_lock_ = true
-
-[node name="Attack1HitBoxArea" parent="." instance=ExtResource("20_i4ail")]
-collision_layer = 32
-collision_mask = 16
-
-[node name="HitBox" type="CollisionPolygon2D" parent="Attack1HitBoxArea"]
+[node name="HitBox" parent="Attack1HitBox" index="0"]
 polygon = PackedVector2Array(4, -26, 22, -24, 32, -20, 36, -16, 36, -10, 32, -6, 24, -4, 4, -4)
 disabled = true
+metadata/_edit_lock_ = true
 
-[node name="Attack2HitBoxArea" parent="." instance=ExtResource("20_i4ail")]
-collision_layer = 32
-collision_mask = 16
+[node name="Attack2HitBox" parent="." groups=["player_boxes"] instance=ExtResource("20_i4ail")]
+collision_layer = 8
+collision_mask = 64
+metadata/_edit_lock_ = true
 
-[node name="HitBox" type="CollisionPolygon2D" parent="Attack2HitBoxArea"]
+[node name="HitBox" parent="Attack2HitBox" index="0"]
 polygon = PackedVector2Array(6, -22, 24, -22, 34, -20, 38, -16, 38, -12, 34, -6, 22, -2, 6, -2)
 disabled = true
+metadata/_edit_lock_ = true
 
-[node name="AttackUpHitBoxArea" parent="." instance=ExtResource("20_i4ail")]
-collision_layer = 32
-collision_mask = 16
+[node name="AttackUpHitBox" parent="." groups=["player_boxes"] instance=ExtResource("20_i4ail")]
+visible = false
+collision_layer = 8
+collision_mask = 64
+metadata/_edit_lock_ = true
 
-[node name="HitBox" type="CollisionPolygon2D" parent="AttackUpHitBoxArea"]
+[node name="HitBox" parent="AttackUpHitBox" index="0"]
 polygon = PackedVector2Array(-18, -6, 14, -18, 18, -22, 18, -34, 8, -48, -6, -48, -18, -34)
 disabled = true
+metadata/_edit_lock_ = true
 
-[node name="AttackDownPlayerHitBoxArea" parent="." instance=ExtResource("20_i4ail")]
-collision_layer = 32
-collision_mask = 16
+[node name="AttackDownHitBox" parent="." groups=["player_boxes"] instance=ExtResource("20_i4ail")]
+visible = false
+collision_layer = 8
+collision_mask = 64
+metadata/_edit_lock_ = true
 
-[node name="HitBox" type="CollisionPolygon2D" parent="AttackDownPlayerHitBoxArea"]
+[node name="HitBox" parent="AttackDownHitBox" index="0"]
 polygon = PackedVector2Array(-16, -16, 18, -6, 18, 0, 12, 16, 6, 20, -6, 20, -16, 2)
+metadata/_edit_lock_ = true
+
+[editable path="HurtBox"]
+[editable path="Attack1HitBox"]
+[editable path="Attack2HitBox"]
+[editable path="AttackUpHitBox"]
+[editable path="AttackDownHitBox"]

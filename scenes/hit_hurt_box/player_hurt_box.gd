@@ -1,0 +1,2 @@
+extends HurtBox
+class_name PlayerHurtBox
