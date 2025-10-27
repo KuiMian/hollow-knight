@@ -2,7 +2,8 @@ extends CharacterBody2D
 class_name Player
 
 const JUMP_VELOCITY := -400.0
-const ACCELERATION := 180
+const ACCELERATION := 120
+const START_SPEED := 90
 const MAX_SPEED := 210
 const SHORT_JUMP_FACTOR := 8
 const FRICTION_FACTOR := 2 * ACCELERATION
@@ -209,7 +210,7 @@ func enter_attack_jump() -> void:
 
 func _physics_process4attack_jump(delta: float) -> void:
 	velocity.x = 0
-	velocity.y = JUMP_VELOCITY
+	velocity.y = JUMP_VELOCITY / 1.5
 	
 	apply_gravity(delta)
 	apply_movement(delta)
@@ -242,6 +243,17 @@ func apply_movement(delta: float) -> void:
 	direction = Input.get_axis("move_left", "move_right")
 	var target_speed = direction * MAX_SPEED if direction != 0 else 0.0
 	var acceleration = ACCELERATION if sign(direction) == sign(velocity.x) else FRICTION_FACTOR
+	
+	# 如果移动方向与键盘输入反向, 立即重置速度
+	if sign(direction) * velocity.x < 0:
+		velocity.x /= 2
+		#velocity.x = 0
+	
+	# 检测刚开始移动的瞬间
+	if direction != 0 and abs(velocity.x) < 0.1:
+		# 添加启动冲量
+		velocity.x = direction * START_SPEED
+	
 	velocity.x = move_toward(velocity.x, target_speed, acceleration * delta)
 
 #endregion utils
