@@ -3,11 +3,15 @@ class_name AttackUp
 
 
 func Enter():
+	super.Enter()
+
 	var player := get_actor()
 	player.can_dash = false
 	player.enter_attack_up()
 
 func Exit():
+	super.Exit()
+	
 	var player := get_actor()
 	player.exit_attack_up()
 

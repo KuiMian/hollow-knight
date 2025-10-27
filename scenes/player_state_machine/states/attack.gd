@@ -4,6 +4,8 @@ class_name Attack
 var normal_attack_1_flag := true
 
 func Enter():
+	super.Enter()
+	
 	var player := get_actor()
 	player.can_dash = false
 	player.enter_attack(normal_attack_1_flag)
@@ -11,6 +13,8 @@ func Enter():
 
 
 func Exit():
+	super.Exit()
+	
 	var player := get_actor()
 	player.exit_attack()
 

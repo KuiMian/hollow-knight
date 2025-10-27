@@ -3,11 +3,15 @@ class_name Dash
 
 
 func Enter():
+	super.Enter()
+	
 	var player := get_actor()
 	player.can_dash = false
 	player.enter_dash()
 
 func Exit():
+	super.Exit()
+	
 	var player := get_actor()
 	player.exit_dash()
 

@@ -39,6 +39,8 @@ var can_double_jump := true
 @onready var attack_up_hit_box: PlayerHitBox = $AttackUpHitBox
 @onready var attack_down_hit_box: PlayerHitBox = $AttackDownHitBox
 
+signal attack_down_start(force_state_str: String)
+
 
 
 func _ready() -> void:
@@ -46,6 +48,9 @@ func _ready() -> void:
 	player_state_machine.actor = self
 	for player_state in player_state_machine.get_children():
 		(player_state as PlayerState).actor = self
+		
+	# Normal -> AttackJump 依赖注入
+	attack_down_start.connect((player_state_machine.get_child(0) as Normal)._set_force_state)
 	
 	_connect_signals()
 
@@ -54,9 +59,9 @@ func _process(delta: float) -> void:
 	
 	if debug:
 		time_count += delta
-		if time_count > 1:
+		if time_count > 0.1:
 			time_count = 0
-			print(hurt_box.get_child(0).disabled)
+			print(can_dash)
 
 func _physics_process(delta: float) -> void:
 	player_state_machine.process_phy_update(delta)
@@ -65,12 +70,7 @@ func _physics_process(delta: float) -> void:
 #region normal state
 
 func _physics_process4normal(delta: float) -> void:
-	# 施加重力
-	if not is_on_floor():
-		velocity += get_gravity() * delta
-	else:
-		can_dash = true
-		can_double_jump = true
+	apply_gravity(delta)
 
 	# 跳跃/二段跳
 	if Input.is_action_just_pressed("jump"):
@@ -85,11 +85,7 @@ func _physics_process4normal(delta: float) -> void:
 	if velocity.y < 0 and not Input.is_action_pressed("jump"):
 		velocity.y += SHORT_JUMP_FACTOR * gravity * delta
 	
-	# 左右移动
-	direction = Input.get_axis("move_left", "move_right")
-	var target_speed = direction * MAX_SPEED if direction != 0 else 0.0
-	var acceleration = ACCELERATION if sign(direction) == sign(velocity.x) else FRICTION_FACTOR
-	velocity.x = move_toward(velocity.x, target_speed, acceleration * delta)
+	apply_movement(delta)
 	
 	# 朝向处理
 	update_facing_direction()
@@ -154,18 +150,8 @@ func enter_attack(normal_attack_1_flag: bool) -> void:
 
 
 func _physics_process4attack(delta: float) -> void:
-	# 施加重力
-	if not is_on_floor():
-		velocity += get_gravity() * delta
-	else:
-		can_dash = true
-		can_double_jump = true
-	
-	# 左右移动
-	direction = Input.get_axis("move_left", "move_right")
-	var target_speed = direction * MAX_SPEED if direction != 0 else 0.0
-	var acceleration = ACCELERATION if sign(direction) == sign(velocity.x) else FRICTION_FACTOR
-	velocity.x = move_toward(velocity.x, target_speed, acceleration * delta)
+	apply_gravity(delta)
+	apply_movement(delta)
 
 
 func exit_attack() -> void:
@@ -196,7 +182,7 @@ func exit_attack_down() -> void:
 
 #endregion attack_down state
 
-#region hit & hurt boxa
+#region hit & hurt box
 
 func _on_hurt_box_area_entered(_area: Area2D) -> void:
 	pass
@@ -211,11 +197,28 @@ func _on_attack_up_hit_box_area_entered(_area: Area2D) -> void:
 	print("Attack")
 
 func _on_attack_down_hit_box_area_entered(_area: Area2D) -> void:
-	print("Attack")
-
+	var force_state_str := "AttackJump"
+	attack_down_start.emit(force_state_str)
 
 #endregion hit & hurt box
 
+#region attack_jump
+
+func enter_attack_jump() -> void:
+	animation_player.play("attack_jump")
+
+func _physics_process4attack_jump(delta: float) -> void:
+	velocity.x = 0
+	velocity.y = JUMP_VELOCITY
+	
+	apply_gravity(delta)
+	apply_movement(delta)
+
+
+func exit_attack_jump() -> void:
+	pass
+
+#endregion attack_jump
 
 #region utils
 
@@ -225,6 +228,20 @@ func _connect_signals() -> void:
 	attack_2_hit_box.area_entered.connect(_on_attack_2_hit_box_area_entered)
 	attack_up_hit_box.area_entered.connect(_on_attack_up_hit_box_area_entered)
 	attack_down_hit_box.area_entered.connect(_on_attack_down_hit_box_area_entered)
-	
+
+# 施加重力
+func apply_gravity(delta: float) -> void:
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+	else:
+		can_dash = true
+		can_double_jump = true
+
+# 左右移动
+func apply_movement(delta: float) -> void:
+	direction = Input.get_axis("move_left", "move_right")
+	var target_speed = direction * MAX_SPEED if direction != 0 else 0.0
+	var acceleration = ACCELERATION if sign(direction) == sign(velocity.x) else FRICTION_FACTOR
+	velocity.x = move_toward(velocity.x, target_speed, acceleration * delta)
 
 #endregion utils
