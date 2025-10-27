@@ -1,0 +1,33 @@
+extends PlayerState
+class_name Hurt
+
+var time_count: float 
+
+
+func Enter():
+	super.Enter()
+	
+	var player := get_actor()
+	player.enter_hurt()
+
+
+func Update_phy(_delta: float):
+	super.Update_phy(_delta)
+
+
+func Exit():
+	super.Exit()
+	
+	var player := get_actor()
+	player.exit_hurt()
+
+
+func get_next_state_str() -> String:
+	var player := get_actor()
+	
+	if player.animation_player.is_playing():
+		next_state_str = self.name
+	else:
+		next_state_str = "Normal"
+	
+	return next_state_str

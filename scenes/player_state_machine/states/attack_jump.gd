@@ -8,8 +8,7 @@ func Enter():
 	super.Enter()
 	
 	var player := get_actor()
-	player.can_dash = true
-	player.can_double_jump = true
+	player.enter_attack_jump()
 	
 	time_count = 0.0
 
@@ -21,13 +20,10 @@ func Update_phy(_delta: float):
 	
 	var player := get_actor()
 	player._physics_process4attack_jump(_delta)
-	
 
 
-func Exit():
+func Exit() -> void:
 	super.Exit()
-	
-	print("Exit Attack Jump")
 
 
 func get_next_state_str() -> String:

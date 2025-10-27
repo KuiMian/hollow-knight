@@ -5,17 +5,6 @@ const NO_FORCE := 'NO_FORCE'
 var force_state_str := NO_FORCE
 
 
-#func _ready() -> void:
-	#call_deferred("_connect_player_signals")
-#
-#func _connect_player_signals() -> void:
-	#var player := actor as Player
-	#if player:
-		#player.attack_down_start.connect(_set_force_state)
-	## defend programming
-	#else:
-		#push_warning("Normal state: actor not ready, cannot connect signals.")
-
 func _set_force_state(new_force_state_str: String) -> void:
 	self.force_state_str = new_force_state_str
 

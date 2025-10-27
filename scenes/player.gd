@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Player
 
+#region 变量与信号
+
 const JUMP_VELOCITY := -400.0
 const ACCELERATION := 120
 const START_SPEED := 90
@@ -40,18 +42,14 @@ var can_double_jump := true
 @onready var attack_up_hit_box: PlayerHitBox = $AttackUpHitBox
 @onready var attack_down_hit_box: PlayerHitBox = $AttackDownHitBox
 
-signal attack_down_start(force_state_str: String)
+signal force_transition(force_state_str: String)
 
+var hurt_direction := 0 # 0表示没有受击，±1表示水平受击方向
 
+#endregion 变量与信号
 
 func _ready() -> void:
-	# 注入依赖
-	player_state_machine.actor = self
-	for player_state in player_state_machine.get_children():
-		(player_state as PlayerState).actor = self
-		
-	# Normal -> AttackJump 依赖注入
-	attack_down_start.connect((player_state_machine.get_child(0) as Normal)._set_force_state)
+	inject_dependency()
 	
 	_connect_signals()
 
@@ -185,8 +183,12 @@ func exit_attack_down() -> void:
 
 #region hit & hurt box
 
-func _on_hurt_box_area_entered(_area: Area2D) -> void:
-	pass
+func _on_hurt_box_area_entered(area: Area2D) -> void:
+	hurt_direction = - sign(area.global_position.x - self.global_position.x)
+	
+	var force_state_str := "Hurt"
+	
+	force_transition.emit(force_state_str)
 
 func _on_attack_1_hit_box_area_entered(_area: Area2D) -> void:
 	velocity.x -= sign(direction) * knockback_speed
@@ -199,14 +201,16 @@ func _on_attack_up_hit_box_area_entered(_area: Area2D) -> void:
 
 func _on_attack_down_hit_box_area_entered(_area: Area2D) -> void:
 	var force_state_str := "AttackJump"
-	attack_down_start.emit(force_state_str)
+	force_transition.emit(force_state_str)
 
 #endregion hit & hurt box
 
 #region attack_jump
 
 func enter_attack_jump() -> void:
-	animation_player.play("attack_jump")
+	animation_player.play("attack_down")
+	
+	reset_skill()
 
 func _physics_process4attack_jump(delta: float) -> void:
 	velocity.x = 0
@@ -221,8 +225,32 @@ func exit_attack_jump() -> void:
 
 #endregion attack_jump
 
+
+#region hurt state
+
+func enter_hurt() -> void:
+	animation_player.play("hurt")
+	
+	velocity.x = hurt_direction * 180
+
+func exit_hurt() -> void:
+	hurt_direction = 0
+
+#endregion hurt state
+
+
 #region utils
 
+# 注入依赖
+func inject_dependency() -> void:
+	player_state_machine.actor = self
+	for player_state in player_state_machine.get_children():
+		(player_state as PlayerState).actor = self
+		
+	# Normal -> AttackJump 依赖注入
+	force_transition.connect((player_state_machine.get_child(0) as Normal)._set_force_state)
+
+# 连接信号
 func _connect_signals() -> void:
 	hurt_box.area_entered.connect(_on_hurt_box_area_entered)
 	attack_1_hit_box.area_entered.connect(_on_attack_1_hit_box_area_entered)
@@ -255,5 +283,10 @@ func apply_movement(delta: float) -> void:
 		velocity.x = direction * START_SPEED
 	
 	velocity.x = move_toward(velocity.x, target_speed, acceleration * delta)
+
+# 刷新技能（比如二段跳、冲刺）
+func reset_skill() -> void:
+	can_dash = true
+	can_double_jump = true
 
 #endregion utils
