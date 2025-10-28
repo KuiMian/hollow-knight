@@ -60,7 +60,12 @@ func _process(delta: float) -> void:
 		time_count += delta
 		if time_count > 0.1:
 			time_count = 0
-			print(can_dash)
+			
+			var a = 0
+			if direction != 0:
+				a = "右" if direction >= 0 else "左"
+				
+			print("碰撞方向 ", hurt_direction, " 面朝方向 " , a)
 
 func _physics_process(delta: float) -> void:
 	player_state_machine.process_phy_update(delta)
@@ -184,7 +189,7 @@ func exit_attack_down() -> void:
 #region hit & hurt box
 
 func _on_hurt_box_area_entered(area: Area2D) -> void:
-	hurt_direction = - sign(area.global_position.x - self.global_position.x)
+	hurt_direction = sign(area.global_position.x - self.global_position.x)
 	
 	var force_state_str := "Hurt"
 	
@@ -197,7 +202,7 @@ func _on_attack_2_hit_box_area_entered(_area: Area2D) -> void:
 	velocity.x -= sign(direction) * knockback_speed
 
 func _on_attack_up_hit_box_area_entered(_area: Area2D) -> void:
-	print("Attack")
+	print("AttackUp")
 
 func _on_attack_down_hit_box_area_entered(_area: Area2D) -> void:
 	var force_state_str := "AttackJump"
@@ -229,9 +234,13 @@ func exit_attack_jump() -> void:
 #region hurt state
 
 func enter_hurt() -> void:
+	#脸朝着敌人被碰离（可以注释掉下面两行，测试一下从左侧跳到敌人右上方碰）
+	direction = hurt_direction
+	update_facing_direction()
+	
 	animation_player.play("hurt")
 	
-	velocity.x = hurt_direction * 180
+	velocity.x = - hurt_direction * 180
 
 func exit_hurt() -> void:
 	hurt_direction = 0
@@ -274,11 +283,17 @@ func apply_movement(delta: float) -> void:
 	
 	# 如果移动方向与键盘输入反向, 立即重置速度
 	if sign(direction) * velocity.x < 0:
-		velocity.x /= 2
-		#velocity.x = 0
+		
+		# 这里有一个关于手感的"bug"。加速后掉头不会享受到起步速度。可以跟静止后的起步速度作对比。
+		# 如果启用下面这行代码，掉头时速度需要衰减时间，来满足下面的abs(velocity.x) < 1 。
+		# 这会导致掉头时起步太慢。
+		#velocity.x /= 2
+		
+		# 而 x /= -8 直接掉头，给一个相对较低的启动速度既会有更舒服的手感，又有刹车的感觉。
+		velocity.x /= -8
 	
 	# 检测刚开始移动的瞬间
-	if direction != 0 and abs(velocity.x) < 0.1:
+	if direction != 0 and abs(velocity.x) < 1:
 		# 添加启动冲量
 		velocity.x = direction * START_SPEED
 	

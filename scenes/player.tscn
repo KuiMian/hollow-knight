@@ -1828,7 +1828,6 @@ _data = {
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 2
 script = ExtResource("1_dqkch")
-debug = false
 has_black_dash = true
 
 [node name="SpriteArea" type="Area2D" parent="."]
@@ -1858,7 +1857,6 @@ script = ExtResource("12_a38lo")
 
 [node name="PlayerStateMachine" type="Node" parent="."]
 script = ExtResource("7_fjrip")
-verbose = true
 init_state_key = "Normal"
 metadata/_custom_type_script = "uid://d2xm4qht8b5w"
 
