@@ -218,7 +218,7 @@ func _on_attack_down_hit_box_area_entered(_area: Area2D) -> void:
 #region attack_jump
 
 func enter_attack_jump() -> void:
-	animation_player.play("attack_down")
+	animation_player.play("attack_jump")
 	
 	reset_skill()
 

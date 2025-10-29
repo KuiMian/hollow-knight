@@ -32,7 +32,7 @@ func get_next_state_str() -> String:
 	
 	# 不管黑猫白猫，能抓到耗子的就是好猫
 	@warning_ignore("incompatible_ternary")
-	next_state_str = "Normal" if time_count > 0.3 else self.name
+	next_state_str = "Normal" if time_count > 0.15 else self.name
 	
 	if Input.is_action_just_pressed("dash") and player.can_dash:
 		next_state_str = "Dash"
