@@ -15,7 +15,7 @@ func _ready() -> void:
 	hurt_box.area_entered.connect(_on_hurt_box_area_entered)
 
 
-func _on_hurt_box_area_entered(area: Area2D) -> void:
+func _on_hurt_box_area_entered(_area: Area2D) -> void:
 	flash_timer.start()
 	sprite_2d.use_parent_material = false
 	
