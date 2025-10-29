@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=4 uid="uid://deu1wgp0ygeir"]
+[gd_scene load_steps=4 format=4 uid="uid://deu1wgp0ygeir"]
 
 [ext_resource type="PackedScene" uid="uid://08f80gfja1f5" path="res://scenes/tile_map_manager.tscn" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://jtrxw21anjyo" path="res://scenes/player.tscn" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://bhh75fc21e2fd" path="res://scenes/boss/boss.tscn" id="2_sugp2"]
-[ext_resource type="PackedScene" uid="uid://bk0iaa5rs3qcb" path="res://scenes/test/boss_2.tscn" id="4_jyhfs"]
 
 [node name="Main" type="Node2D"]
 
@@ -15,11 +14,11 @@ tile_map_data = PackedByteArray("AAD9//7/AgACAAAAAAADAAEAAgAAAAIAAAAEAAEAAgABAAI
 [node name="Boss" parent="." instance=ExtResource("2_sugp2")]
 position = Vector2(21, 64)
 
+[node name="Boss2" parent="." instance=ExtResource("2_sugp2")]
+position = Vector2(-40, 64)
+
 [node name="Player" parent="." instance=ExtResource("2_0wfyh")]
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-
-[node name="Boss2" parent="." instance=ExtResource("4_jyhfs")]
-position = Vector2(79, -16)
 
 [editable path="TileMapManager"]

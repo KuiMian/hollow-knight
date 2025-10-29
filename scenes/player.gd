@@ -46,6 +46,9 @@ signal force_transition(force_state_str: String)
 
 var hurt_direction := 0 # 0表示没有受击，±1表示水平受击方向
 
+@onready var invincible_timer: Timer = $InvincibleTimer
+
+
 #endregion 变量与信号
 
 func _ready() -> void:
@@ -131,15 +134,17 @@ func enter_dash() -> void:
 	if has_black_dash:
 		black_dash.spawn_black_dash()
 		animation_player.play("black_dash")
+		(hurt_box.get_child(0) as CollisionPolygon2D).disabled = true
 	else:
 		animation_player.play("dash")
 
-
 func exit_dash() -> void:
+	if has_black_dash:
+		# 无敌状态优先度高于冲刺
+		if invincible_timer.is_stopped():
+			(hurt_box.get_child(0) as CollisionPolygon2D).disabled = false
+	
 	reset_velocitiy()
-
-func reset_velocitiy() -> void:
-	velocity = Vector2.ZERO
 	
 #endregion dash state
 
@@ -240,10 +245,30 @@ func enter_hurt() -> void:
 	
 	animation_player.play("hurt")
 	
-	velocity.x = - hurt_direction * 180
+	velocity.x = - hurt_direction * 90
+	
+	invincible()
 
 func exit_hurt() -> void:
 	hurt_direction = 0
+
+func invincible() -> void:
+	invincible_timer.wait_time = 2
+	invincible_timer.one_shot = true
+	invincible_timer.start()
+	
+	(hurt_box.get_child(0) as CollisionPolygon2D).disabled = true
+	
+	while true:
+		# 闪烁
+		(sprite_area.get_child(0) as Sprite2D).visible = false
+		await get_tree().create_timer(0.1).timeout
+		(sprite_area.get_child(0) as Sprite2D).visible = true
+		await get_tree().create_timer(0.1).timeout
+
+		if invincible_timer.is_stopped():
+			(hurt_box.get_child(0) as CollisionPolygon2D).disabled = false
+			break
 
 #endregion hurt state
 
@@ -290,6 +315,7 @@ func apply_movement(delta: float) -> void:
 		#velocity.x /= 2
 		
 		# 而 x /= -8 直接掉头，给一个相对较低的启动速度既会有更舒服的手感，又有刹车的感觉。
+		# 总之，物理运动参数的数值调整问题也是打磨手感的一部分。不必太纠结。
 		velocity.x /= -8
 	
 	# 检测刚开始移动的瞬间
@@ -298,6 +324,10 @@ func apply_movement(delta: float) -> void:
 		velocity.x = direction * START_SPEED
 	
 	velocity.x = move_toward(velocity.x, target_speed, acceleration * delta)
+
+# 静止状态
+func reset_velocitiy() -> void:
+	velocity = Vector2.ZERO
 
 # 刷新技能（比如二段跳、冲刺）
 func reset_skill() -> void:
