@@ -195,7 +195,6 @@ func exit_attack_down() -> void:
 
 func _on_hurt_box_area_entered(area: Area2D) -> void:
 	hurt_direction = sign(area.global_position.x - self.global_position.x)
-	
 	var force_state_str := "Hurt"
 	
 	force_transition.emit(force_state_str)

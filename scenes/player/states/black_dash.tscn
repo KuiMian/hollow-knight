@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bui8vhonmrnth"]
 
-[ext_resource type="Script" uid="uid://5tfue4fyp2wl" path="res://scenes/player_state_machine/states/black_dash.gd" id="1_uafwq"]
+[ext_resource type="Script" uid="uid://5tfue4fyp2wl" path="res://scenes/player/states/black_dash.gd" id="1_uafwq"]
 [ext_resource type="Texture2D" uid="uid://ci8j875uaaj6n" path="res://assets/聚集.png" id="2_1b83x"]
 
 [sub_resource type="Animation" id="Animation_u2xyd"]

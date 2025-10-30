@@ -4,11 +4,13 @@ class_name State
 var state_machine: BaseStateMachine
 var next_state_str: String
 
-var actor: Node
+#var actor: Node
 
-func get_actor() -> Node:
+func get_actor():
 	# 在子类中重载为宿主的类型
-	return actor as Node
+	#return actor as Node
+	
+	pass
 
 @export var verbose := false
 

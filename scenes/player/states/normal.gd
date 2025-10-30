@@ -4,15 +4,14 @@ class_name Normal
 const NO_FORCE := 'NO_FORCE'
 var force_state_str := NO_FORCE
 
-
 func _set_force_state(new_force_state_str: String) -> void:
 	self.force_state_str = new_force_state_str
 
 func Update_phy(_delta: float):
 	super.Update_phy(_delta)
 	
-	var player := get_actor()
-	player._physics_process4normal(_delta)
+	actor = get_actor()
+	actor._physics_process4normal(_delta)
 
 func get_next_state_str() -> String:
 	if force_state_str != NO_FORCE:
@@ -21,14 +20,14 @@ func get_next_state_str() -> String:
 		
 		return temp_state_str
 	
-	var player := get_actor()
+	actor = get_actor()
 	
-	if Input.is_action_just_pressed("dash") and player.can_dash:
+	if Input.is_action_just_pressed("dash") and actor.can_dash:
 		next_state_str = "Dash"
-	elif Input.is_action_just_pressed("attack") and player.attack_timer.is_stopped():
+	elif Input.is_action_just_pressed("attack") and actor.attack_timer.is_stopped():
 		if Input.is_action_pressed("look_up"):
 			next_state_str = "AttackUp"
-		elif !player.is_on_floor() and Input.is_action_pressed("look_down"):
+		elif !actor.is_on_floor() and Input.is_action_pressed("look_down"):
 			next_state_str = "AttackDown"
 		else:
 			next_state_str = "Attack"

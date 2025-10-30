@@ -40,6 +40,8 @@ func _ready() -> void:
 func process_update(delta: float) -> void:
 	current_state.Update(delta)
 
+# 在phy_process_update里确认是否状态
+# 因此actor需要在phy_process调用状态机的这个函数
 func process_phy_update(delta: float) -> void:
 	var state: String = check_state()
 	call_deferred("change_state", state)
