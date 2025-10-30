@@ -3,6 +3,7 @@ class_name Player
 
 #region 变量与信号
 
+
 const JUMP_VELOCITY := -400.0
 const ACCELERATION := 120
 const START_SPEED := 90
@@ -16,7 +17,7 @@ const knockback_speed := 60
 @export var debug := true
 var time_count := 0.0
 
-@onready var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
+var gravity: float = 1200
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite_area: Area2D = $SpriteArea
@@ -94,19 +95,12 @@ func _physics_process4normal(delta: float) -> void:
 	
 	apply_movement(delta)
 	
-	# 朝向处理
+	
 	update_facing_direction()
 	
 	# normal state 的各种动画
 	update_animation()
 
-func update_facing_direction() -> void:
-	if direction != 0:
-		sprite_area.scale.x = sign(direction)
-		last_facing_direction = sign(direction)
-		
-		for box in get_tree().get_nodes_in_group("player_boxes"):
-			(box as Area2D).scale.x = sign(direction)
 
 func update_animation() -> void:
 	if not is_on_floor():
@@ -294,7 +288,7 @@ func _connect_signals() -> void:
 # 施加重力
 func apply_gravity(delta: float) -> void:
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		velocity.y += gravity * delta
 	else:
 		can_dash = true
 		can_double_jump = true
@@ -323,6 +317,15 @@ func apply_movement(delta: float) -> void:
 		velocity.x = direction * START_SPEED
 	
 	velocity.x = move_toward(velocity.x, target_speed, acceleration * delta)
+
+# 朝向处理
+func update_facing_direction() -> void:
+	if direction != 0:
+		sprite_area.scale.x = sign(direction)
+		last_facing_direction = sign(direction)
+		
+		for box in get_tree().get_nodes_in_group("player_boxes"):
+			(box as Area2D).scale.x = sign(direction)
 
 # 静止状态
 func reset_velocitiy() -> void:

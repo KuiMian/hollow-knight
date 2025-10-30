@@ -5,6 +5,13 @@ class_name Idle
 #const NO_FORCE := 'NO_FORCE'
 #var force_state_str := NO_FORCE
 
+
+func Enter():
+	super.Enter()
+	
+	actor.enter_idle()
+
+
 func _set_force_state(new_force_state_str: String) -> void:
 	self.force_state_str = new_force_state_str
 

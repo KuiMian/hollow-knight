@@ -10,10 +10,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	match_player_position()
 	
-	if player_position.x > 280 and player_position.x < 584:
+	if player_position.x > 304 and player_position.x < 584:
 		global_position.x = lerp(player_position.x, global_position.x, pow(2, -7 * delta))
 		
-	if player_position.x < 280:
+	if player_position.x < 304:
 		global_position.x = lerp(152.0, global_position.x, pow(2, -7 * delta))
 		
 		if door.can_work:

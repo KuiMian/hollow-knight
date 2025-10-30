@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bhh75fc21e2fd"]
+[gd_scene load_steps=26 format=3 uid="uid://bhh75fc21e2fd"]
 
 [ext_resource type="Script" uid="uid://chqat856ojb4q" path="res://scenes/boss/boss.gd" id="1_irgnd"]
 [ext_resource type="Texture2D" uid="uid://dixfoorhggawc" path="res://assets/表弟站立.png" id="2_btulv"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bcpha1n8qyitb" path="res://assets/表弟挥砍准备.png" id="5_dlpkd"]
 [ext_resource type="Texture2D" uid="uid://c2m0rqv322ngw" path="res://assets/表弟上挑.png" id="6_7kbl1"]
 [ext_resource type="Texture2D" uid="uid://de4eubmwo6aq1" path="res://assets/表弟上挑准备.png" id="7_7kbl1"]
+[ext_resource type="Script" uid="uid://dk08tw5cjjnu6" path="res://scenes/boss/states/ready.gd" id="9_r432h"]
 [ext_resource type="Script" uid="uid://c2cbo8hnyasc6" path="res://scenes/boss/states/idle.gd" id="9_xsifj"]
 [ext_resource type="Script" uid="uid://dwq0oxbjyxmr2" path="res://scenes/boss/boss_state_machine.gd" id="10_2mupd"]
 [ext_resource type="Script" uid="uid://by3lu4is72df2" path="res://scenes/boss/states/prepare_attack1.gd" id="10_jghey"]
@@ -784,8 +785,12 @@ libraries = {
 [node name="BossStateMachine" type="Node" parent="."]
 script = ExtResource("10_2mupd")
 verbose = true
-init_state_key = "Idle"
+init_state_key = "Ready"
 metadata/_custom_type_script = "uid://d2xm4qht8b5w"
+
+[node name="Ready" type="Node" parent="BossStateMachine"]
+script = ExtResource("9_r432h")
+metadata/_custom_type_script = "uid://cw434ej3iy2hq"
 
 [node name="Idle" type="Node" parent="BossStateMachine"]
 script = ExtResource("9_xsifj")
@@ -798,7 +803,6 @@ metadata/_custom_type_script = "uid://cw434ej3iy2hq"
 
 [node name="Attack1" type="Node" parent="BossStateMachine"]
 script = ExtResource("11_jghey")
-verbose = null
 metadata/_custom_type_script = "uid://cw434ej3iy2hq"
 
 [node name="PrepareAttack2" type="Node" parent="BossStateMachine"]
@@ -809,21 +813,21 @@ metadata/_custom_type_script = "uid://cw434ej3iy2hq"
 script = ExtResource("12_wxk8e")
 metadata/_custom_type_script = "uid://cw434ej3iy2hq"
 
-[node name="HurtBox" parent="." instance=ExtResource("4_rlar4")]
+[node name="HurtBox" parent="." groups=["boss_boxes"] instance=ExtResource("4_rlar4")]
 collision_layer = 64
 collision_mask = 8
 
 [node name="HurtBox" parent="HurtBox" index="0"]
 polygon = PackedVector2Array(-8, -24, 8, -24, 8, 0, -8, 0)
 
-[node name="BodyHitBox" parent="." instance=ExtResource("3_bdiab")]
+[node name="BodyHitBox" parent="." groups=["boss_boxes"] instance=ExtResource("3_bdiab")]
 collision_layer = 32
 collision_mask = 16
 
 [node name="HitBox" parent="BodyHitBox" index="0"]
 polygon = PackedVector2Array(-8, -23, -8, 1, 8, 1, 8, -23)
 
-[node name="Attack1HitBox" parent="." instance=ExtResource("3_bdiab")]
+[node name="Attack1HitBox" parent="." groups=["boss_boxes"] instance=ExtResource("3_bdiab")]
 collision_layer = 32
 collision_mask = 16
 
@@ -835,7 +839,7 @@ polygon = PackedVector2Array(-8, -3, -40, -3, -54, -7, -56, -13, -56, -21, -46, 
 polygon = PackedVector2Array(-52, -23, -52, -11, -38, 1, -8, 1, -8, -11, -42, -11, -48, -23)
 disabled = true
 
-[node name="Attack2HitBox" parent="." instance=ExtResource("3_bdiab")]
+[node name="Attack2HitBox" parent="." groups=["boss_boxes"] instance=ExtResource("3_bdiab")]
 collision_layer = 32
 collision_mask = 16
 
