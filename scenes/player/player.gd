@@ -275,7 +275,7 @@ func inject_dependency() -> void:
 		(player_state as PlayerState).actor = self
 		
 	# Normal -> AttackJump 依赖注入
-	force_transition.connect((player_state_machine.get_child(0) as Normal)._set_force_state)
+	force_transition.connect((player_state_machine.get_child(0) as PlayerNormal)._set_force_state)
 
 # 连接信号
 func _connect_signals() -> void:

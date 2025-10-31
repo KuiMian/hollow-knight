@@ -1,5 +1,5 @@
 extends PlayerState
-class_name Normal
+class_name PlayerNormal
 
 const NO_FORCE := 'NO_FORCE'
 var force_state_str := NO_FORCE
@@ -18,7 +18,7 @@ func get_next_state_str() -> String:
 		var temp_state_str: String = force_state_str
 		force_state_str = NO_FORCE
 		
-		return temp_state_str
+		return prefix + temp_state_str
 	
 	actor = get_actor()
 	
@@ -32,7 +32,7 @@ func get_next_state_str() -> String:
 		else:
 			next_state_str = "Attack"
 	else:
-		next_state_str = self.name
+		next_state_str = "Normal"
 	
-	return next_state_str
+	return prefix + next_state_str
 	

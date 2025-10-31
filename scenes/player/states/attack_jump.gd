@@ -1,5 +1,5 @@
 extends PlayerState
-class_name AttackJump
+class_name PlayerAttackJump
 
 var time_count: float 
 
@@ -31,10 +31,9 @@ func get_next_state_str() -> String:
 	#next_state_str = "Normal" if player.velocity.y > player.JUMP_VELOCITY / 2 else self.name
 	
 	# 不管黑猫白猫，能抓到耗子的就是好猫
-	@warning_ignore("incompatible_ternary")
-	next_state_str = "Normal" if time_count > 0.15 else self.name
+	next_state_str = "Normal" if time_count > 0.15 else "AttackJump"
 	
 	if Input.is_action_just_pressed("dash") and player.can_dash:
 		next_state_str = "Dash"
 	
-	return next_state_str
+	return prefix + next_state_str

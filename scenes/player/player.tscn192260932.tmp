@@ -1997,7 +1997,7 @@ script = ExtResource("12_a38lo")
 
 [node name="PlayerStateMachine" type="Node" parent="."]
 script = ExtResource("7_fjrip")
-init_state_key = "PlayerNormal"
+init_state_key = "PLayerNormal"
 metadata/_custom_type_script = "uid://d2xm4qht8b5w"
 
 [node name="PlayerNormal" type="Node" parent="PlayerStateMachine"]

@@ -1,5 +1,5 @@
 extends PlayerState
-class_name Hurt
+class_name PlayerHurt
 
 var time_count: float 
 
@@ -26,8 +26,8 @@ func get_next_state_str() -> String:
 	var player := get_actor()
 	
 	if player.animation_player.is_playing():
-		next_state_str = self.name
+		next_state_str = "Hurt"
 	else:
 		next_state_str = "Normal"
 	
-	return next_state_str
+	return prefix + next_state_str

@@ -6,7 +6,7 @@ var time_count := 0.0
 
 var direction: int = -1
 
-var gravity: float = 6000
+var gravity: float = 2000
 
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -21,6 +21,11 @@ var gravity: float = 6000
 @onready var attack_1_hit_box: EnemyHitBox = $Attack1HitBox
 @onready var attack_2_hit_box: EnemyHitBox = $Attack2HitBox
 
+var player: Player
+var player_position: Vector2
+
+@onready var attack_interval_timer: Timer = $AttackIntervalTimer
+var can_take_action := true
 
 
 func _ready() -> void:
@@ -29,6 +34,10 @@ func _ready() -> void:
 	animation_player.play("idle")
 	
 	hurt_box.area_entered.connect(_on_hurt_box_area_entered)
+	attack_interval_timer.timeout.connect(
+		func() -> void:
+			can_take_action = true
+	)
 
 func _process(delta: float) -> void:
 	boss_state_machine.process_update(delta)
@@ -44,6 +53,9 @@ func _physics_process(delta: float) -> void:
 	boss_state_machine.process_phy_update(delta)
 	
 	move_and_slide()
+	
+	locate_player()
+
 
 func _on_hurt_box_area_entered(_area: Area2D) -> void:
 	flash_timer.start()
@@ -67,30 +79,53 @@ func enter_idle() -> void:
 	
 	reset_velocitiy()
 
-func _physics_process4idle(_delta: float) -> void:
+
+func _physics_process4idle(delta: float) -> void:
 	face_player()
 	
 	reset_velocitiy()
 	
-	apply_gravity(_delta)
-
-	#apply_movement(delta)
-	
-	# normal state 的各种动画
-	#update_animation()
-
-#
-#func update_animation() -> void:
-	#if not is_on_floor():
-		#if is_double_jumping:
-			#animation_player.play("double_jump")
-		#else:
-			#animation_player.play("jump" if velocity.y > 0 else "fall")
-	#else:
-		#animation_player.play("move" if velocity.x != 0 else "idle")
-
+	apply_gravity(delta)
 
 #endregion idle state
+
+#region move state
+
+func enter_move() -> void:
+	animation_player.play("move")
+
+func _physics_process4move(delta: float) -> void:
+	face_player()
+	
+	velocity.x = 80 * sign(direction)
+	
+	apply_gravity(delta)
+
+#endregion move state
+
+#region jump state
+
+func enter_jump() -> void:
+	face_player()
+	animation_player.play("jump")
+	
+	velocity.x = 180 * sign(direction)
+	velocity.y = -400
+
+func _physics_process4jump(delta: float) -> void:
+	apply_gravity(delta)
+
+#endregion jump state
+
+#region fall state
+
+func enter_fall() -> void:
+	animation_player.play("fall")
+
+func _physics_process4fall(delta: float) -> void:
+	apply_gravity(delta)
+
+#endregion fall state
 
 #region prepare attack1 state
 
@@ -108,7 +143,6 @@ func enter_attack1() -> void:
 
 func _physics_process4attack1(delta: float) -> void:
 	velocity.x = 200 * sign(direction)
-	velocity.y = 0
 	
 	apply_gravity(delta)
 
@@ -117,6 +151,8 @@ func _physics_process4attack1(delta: float) -> void:
 #region prepare attack2 state
 
 func enter_prepare_attack2() -> void:
+	face_player()
+	
 	reset_velocitiy()
 	
 	animation_player.play("prepare_attack2")
@@ -145,14 +181,19 @@ func inject_dependency() -> void:
 	boss_state_machine.actor = self
 	for boss_state in boss_state_machine.get_children():
 		(boss_state as BossState).actor = self
+	
+	player = get_tree().get_nodes_in_group("players")[0]
+	locate_player()
 
 func apply_gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
+func locate_player() -> void:
+	player_position = player.global_position
+
 func face_player() -> void:
-	var player: Player = get_tree().get_nodes_in_group("players")[0]
-	direction = -1 if player.global_position < global_position else 1
+	direction = -1 if player_position < global_position else 1
 	
 	update_facing_direction()
 
@@ -164,5 +205,6 @@ func update_facing_direction() -> void:
 
 func reset_velocitiy() -> void:
 	velocity = Vector2.ZERO
+
 
 #endregion

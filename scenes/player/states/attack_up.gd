@@ -1,5 +1,5 @@
 extends PlayerState
-class_name AttackUp
+class_name PlayerAttackUp
 
 
 func Enter():
@@ -19,6 +19,8 @@ func get_next_state_str() -> String:
 	var player := get_actor()
 	
 	if player.animation_player.is_playing():
-		return "AttackUp"
+		next_state_str =  "AttackUp"
+	else:
+		next_state_str = "Normal"
 	
-	return "Normal"
+	return prefix + next_state_str

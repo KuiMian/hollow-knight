@@ -1,5 +1,5 @@
 extends BossState
-class_name Attack1
+class_name BossAttack1
 
 
 func Enter():
@@ -17,8 +17,8 @@ func get_next_state_str() -> String:
 	actor = get_actor()
 	
 	if actor.animation_player.is_playing():
-		next_state_str = self.name
+		next_state_str = "Attack1"
 	else:
 		next_state_str = "PrepareAttack2"
 	
-	return next_state_str
+	return prefix + next_state_str

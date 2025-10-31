@@ -1,5 +1,5 @@
 extends PlayerState
-class_name Dash
+class_name PlayerDash
 
 
 func Enter():
@@ -20,6 +20,8 @@ func get_next_state_str() -> String:
 	var player := get_actor()
 	
 	if player.animation_player.is_playing():
-		return "Dash"
+		next_state_str =  "Dash"
+	else:
+		next_state_str = "Normal"
 	
-	return "Normal"
+	return prefix + next_state_str

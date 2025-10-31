@@ -1,23 +1,21 @@
 extends BossState
-class_name BossAttack2
-
+class_name BossJump
 
 func Enter():
 	super.Enter()
 	
-	actor.enter_attack2()
+	actor.enter_jump()
+
 
 func Update_phy(delta: float):
 	super.Update_phy(delta)
 	
-	actor._physics_process4attack2(delta)
+	actor._physics_process4jump(delta)
 
 func get_next_state_str() -> String:
-	actor = get_actor()
-	
-	if actor.animation_player.is_playing():
-		next_state_str = "Attack2"
-	else:
+	if actor.velocity.y > 0:
 		next_state_str = "Fall"
-	
+	else:
+		next_state_str = "Jump"
+		
 	return prefix + next_state_str

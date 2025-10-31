@@ -1,5 +1,5 @@
 extends PlayerState
-class_name Attack
+class_name PlayerAttack
 
 var normal_attack_1_flag := true
 
@@ -22,6 +22,8 @@ func get_next_state_str() -> String:
 	var player := get_actor()
 	
 	if player.animation_player.is_playing():
-		return "Attack"
+		next_state_str =  "Attack"
+	else:
+		next_state_str = "Normal"
 	
-	return "Normal"
+	return prefix + next_state_str
