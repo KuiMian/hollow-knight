@@ -109,10 +109,13 @@ func enter_jump() -> void:
 	face_player()
 	animation_player.play("jump")
 	
-	velocity.x = 180 * sign(direction)
-	velocity.y = -400
+	velocity.x = 240 * sign(direction)
+	velocity.y = -600
 
 func _physics_process4jump(delta: float) -> void:
+	# 水平方向，大的起步速度，以及相应的摩擦力可以起到更好的视觉效果
+	velocity.x -= 20 * sign(direction) * delta
+	
 	apply_gravity(delta)
 
 #endregion jump state
@@ -163,19 +166,65 @@ func enter_prepare_attack2() -> void:
 
 func enter_attack2() -> void:
 	animation_player.play("attack2")
-	
+	velocity.y = -500
+
 func _physics_process4attack2(delta: float) -> void:
 	velocity.x = 80 * sign(direction)
-	velocity.y = -300
 	
 	apply_gravity(delta)
 
 func exit_attack2() -> void:
-	velocity.y = 1000
+	velocity.y = 600
 
 #endregion attack2 state
 
-#region util
+#region jump2 state
+
+func enter_jump2() -> void:
+	face_player()
+	animation_player.play("jump")
+	
+	velocity.x = 600 * sign(direction)
+	velocity.y = -600
+
+func _physics_process4jump2(delta: float) -> void:
+	velocity.x -= 20 * sign(direction) * delta
+	
+	apply_gravity(delta)
+
+#endregion jump2 state
+
+#region prepare downthrust state
+
+func enter_prepare_downthrust() -> void:
+	reset_velocitiy()
+	
+	animation_player.play("prepare_downthrust")
+
+#endregion prepare downthrust state
+
+#region downthrust state
+
+func enter_downthrust() -> void:
+	animation_player.play("downthrust")
+	velocity.y = 200
+	velocity.y += 100
+
+func _physics_process4downthrust(delta: float) -> void:
+	apply_gravity(delta)
+
+#endregion downthrust state
+
+#region end downthrust state
+
+func enter_end_downthrust() -> void:
+	reset_velocitiy()
+	
+	animation_player.play("end_downthrust")
+
+#endregion end downthrust state
+
+#region utils
 
 func inject_dependency() -> void:
 	boss_state_machine.actor = self

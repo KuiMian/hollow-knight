@@ -1968,7 +1968,6 @@ collision_mask = 2
 script = ExtResource("1_dqkch")
 debug = false
 has_black_dash = true
-is_double_jumping = false
 
 [node name="SpriteArea" type="Area2D" parent="."]
 

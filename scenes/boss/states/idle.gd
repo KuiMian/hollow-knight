@@ -41,7 +41,8 @@ func get_next_state_str() -> String:
 		elif abs(actor.global_position.x - actor.player_position.x) <= 120:
 			next_state_str = "Move"
 		else:
-			next_state_str = "Jump"
+			next_state_str = expand_by_weight_dict({"Jump": 2, "Jump2": 1}).pick_random()
+
 	else:
 		next_state_str = "Idle"
 		
@@ -52,3 +53,11 @@ func reset_cooldown_time() -> void:
 	
 	if actor.attack_interval_timer.is_stopped():
 		actor.attack_interval_timer.start()
+
+# 辅助函数，应放于global系文件
+func expand_by_weight_dict(weight_map: Dictionary) -> Array:
+	var _expanded: Array = []
+	for key in weight_map.keys():
+		for i in range(int(weight_map[key])):
+			_expanded.append(key)
+	return _expanded
