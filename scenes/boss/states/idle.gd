@@ -5,6 +5,12 @@ class_name BossIdle
 #const NO_FORCE := 'NO_FORCE'
 #var force_state_str := NO_FORCE
 
+@export var next_state_dict: Dictionary = {
+	"Jump": 1, 
+	"Jump2": 3, 
+	"BackJump": 1,
+}
+
 
 func Enter():
 	super.Enter()
@@ -41,7 +47,7 @@ func get_next_state_str() -> String:
 		elif abs(actor.global_position.x - actor.player_position.x) <= 120:
 			next_state_str = "Move"
 		else:
-			next_state_str = expand_by_weight_dict({"Jump": 1, "Jump2": 3}).pick_random()
+			next_state_str = expand_by_weight_dict(next_state_dict).pick_random()
 
 	else:
 		next_state_str = "Idle"

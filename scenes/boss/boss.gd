@@ -111,7 +111,8 @@ func enter_jump() -> void:
 	face_player()
 	animation_player.play("jump")
 	
-	velocity.x = 240 * sign(direction)
+	# 现在boss可以“智能地”跳跃不同的距离
+	velocity.x = 160 * (1 + randf()) * sign(direction)
 	velocity.y = -600
 
 func _physics_process4jump(delta: float) -> void:
@@ -228,6 +229,33 @@ func enter_end_downthrust() -> void:
 	animation_player.play("end_downthrust")
 
 #endregion end downthrust state
+
+#region backjump state
+
+func enter_back_jump() -> void:
+	face_player()
+	animation_player.play("back_jump")
+	
+	velocity.x = -120 * sign(direction)
+	velocity.y = -600
+
+func _physics_process4back_jump(delta: float) -> void:
+	velocity.x -= 20 * sign(direction) * delta
+	
+	apply_gravity(delta)
+
+#endregion backjump state
+
+#region backfall state
+
+func enter_back_fall() -> void:
+	face_player()
+	animation_player.play("back_fall")
+
+func _physics_process4back_fall(delta: float) -> void:
+	apply_gravity(delta)
+
+#endregion backjump state
 
 #region utils
 
