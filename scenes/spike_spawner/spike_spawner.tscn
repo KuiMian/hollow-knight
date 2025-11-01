@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://chtsoj8ostj3u"]
+
+[ext_resource type="Script" uid="uid://dc8tr1drknrui" path="res://scenes/spike_spawner/spike_spawner.gd" id="1_romyr"]
+
+[node name="SpikeSpawner" type="Node2D"]
+script = ExtResource("1_romyr")

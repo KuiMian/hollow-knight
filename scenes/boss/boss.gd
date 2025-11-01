@@ -27,6 +27,8 @@ var player_position: Vector2
 @onready var attack_interval_timer: Timer = $AttackIntervalTimer
 var can_take_action := true
 
+@onready var spike_spawner: SpikeSpawner = $SpikeSpawner
+
 
 func _ready() -> void:
 	inject_dependency()
@@ -212,6 +214,9 @@ func enter_downthrust() -> void:
 
 func _physics_process4downthrust(delta: float) -> void:
 	apply_gravity(delta)
+
+func exit_downthrust() -> void:
+	spike_spawner.spawn_spikes()
 
 #endregion downthrust state
 

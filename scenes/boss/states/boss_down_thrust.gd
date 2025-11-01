@@ -7,6 +7,13 @@ func Enter():
 	
 	actor.enter_downthrust()
 
+
+func Exit():
+	super.Exit()
+	
+	actor.exit_downthrust()
+
+
 func get_next_state_str() -> String:
 	actor = get_actor()
 	

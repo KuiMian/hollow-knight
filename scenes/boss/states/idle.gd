@@ -41,7 +41,7 @@ func get_next_state_str() -> String:
 		elif abs(actor.global_position.x - actor.player_position.x) <= 120:
 			next_state_str = "Move"
 		else:
-			next_state_str = expand_by_weight_dict({"Jump": 2, "Jump2": 1}).pick_random()
+			next_state_str = expand_by_weight_dict({"Jump": 1, "Jump2": 3}).pick_random()
 
 	else:
 		next_state_str = "Idle"

@@ -23,7 +23,5 @@ func _process(delta: float) -> void:
 		global_position.x = lerp(584.0, global_position.x, pow(2, -7 * delta))
 
 func match_player_position() -> void:
-	var players = get_tree().get_nodes_in_group("players")
-	if players.size() > 0:
-		var player: Player = players[0]
-		player_position = player.global_position
+	var player: Player = get_tree().get_first_node_in_group("players")
+	player_position = player.global_position
