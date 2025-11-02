@@ -16,7 +16,10 @@ func get_next_state_str() -> String:
 	if not actor.is_on_floor():
 		next_state_str = "BackFall"
 	else:
-		next_state_str = "ReleaseShockwave"
+		if actor.shockwave_interval_timer.is_stopped():
+			next_state_str = "ReleaseShockwave" if randf() < 0.5 else "PrepareDashAttack"
+		else:
+			next_state_str = "PrepareDashAttack"
 		
 		# 跳跃后重置攻击间隔
 		actor.can_take_action = true

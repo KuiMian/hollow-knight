@@ -49,7 +49,7 @@ func get_next_state_str() -> String:
 		elif abs(actor.global_position.x - actor.player_position.x) <= 120:
 			next_state_str = "Move"
 		# Boss太靠近边界不会进入后跳状态
-		elif actor.global_position.x <= 16 or actor.global_position.x >= 288:
+		elif actor.global_position.x <= actor.BOUNDARY.front() or actor.global_position.x >= actor.BOUNDARY.back():
 			next_state_str = action_frequency_ls.filter(func(x): return x != "BackJump").pick_random()
 		else:
 			next_state_str = expand_by_weight_dict(next_state_dict).pick_random()

@@ -27,10 +27,14 @@ var player_position: Vector2
 @onready var attack_interval_timer: Timer = $AttackIntervalTimer
 var can_take_action := true
 
+const BOUNDARY := [16, 288]
+
 @onready var spike_spawner: SpikeSpawner = $SpikeSpawner
 
 @onready var shockwave_spawner: ShockwaveSpawner = $ShockwaveSpawner
 @onready var shockwave_interval_timer: Timer = $ShockwaveIntervalTimer
+
+const DASH_SPEED := 400
 
 
 func _ready() -> void:
@@ -266,12 +270,44 @@ func enter_release_shockwave() -> void:
 	reset_velocitiy()
 	face_player()
 	animation_player.play("release_shockwave")
+	
+	shockwave_interval_timer.start()
 
 func release_shockwave() -> void:
 	shockwave_spawner.spawn_shockwave()
 
 #endregion release shockwave state
 
+#region dash attack state
+
+func enter_prepare_dash_attack() -> void:
+	face_player()
+	reset_velocitiy()
+	
+	animation_player.play("prepare_dash_attack")
+
+#endregion dash attack state
+
+#region dash attack state
+
+func enter_dash_attack() -> void:
+	velocity.x = DASH_SPEED * sign(direction)
+	
+	animation_player.play("dash_attack")
+
+func exit_dash_attack() -> void:
+	reset_velocitiy()
+
+#endregion dash attack state
+
+#region dash attack state
+
+func enter_end_dash_attack() -> void:
+	reset_velocitiy()
+	
+	animation_player.play("end_dash_attack")
+
+#endregion dash attack state
 
 #region utils
 
