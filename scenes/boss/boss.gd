@@ -29,6 +29,9 @@ var can_take_action := true
 
 @onready var spike_spawner: SpikeSpawner = $SpikeSpawner
 
+@onready var shockwave_spawner: ShockwaveSpawner = $ShockwaveSpawner
+@onready var shockwave_interval_timer: Timer = $ShockwaveIntervalTimer
+
 
 func _ready() -> void:
 	inject_dependency()
@@ -264,8 +267,8 @@ func enter_release_shockwave() -> void:
 	face_player()
 	animation_player.play("release_shockwave")
 
-#func _physics_process4release_shockwave(delta: float) -> void:
-	#apply_gravity(delta)
+func release_shockwave() -> void:
+	shockwave_spawner.spawn_shockwave()
 
 #endregion release shockwave state
 
