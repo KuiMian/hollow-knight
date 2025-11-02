@@ -93,8 +93,11 @@ func _physics_process4normal(delta: float) -> void:
 	if velocity.y < 0 and not Input.is_action_pressed("jump"):
 		velocity.y += SHORT_JUMP_FACTOR * gravity * delta
 	
-	apply_movement(delta)
+	if Input.is_action_just_pressed("heal") and Global_HUD.player_soul >= 3:
+		var force_state_str := "Heal"
+		force_transition.emit(force_state_str)
 	
+	apply_movement(delta)
 	
 	update_facing_direction()
 	
@@ -192,7 +195,9 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 	
 	force_transition.emit(force_state_str)
 	
-	update_health(-5)
+	# 不同的area造成不同的伤害，复杂情况可以用match
+	var v := -1 if area.name == "BodyHitBox" else -2
+	update_health(v)
 
 func _on_attack_1_hit_box_area_entered(_area: Area2D) -> void:
 	velocity.x -= sign(direction) * knockback_speed
@@ -290,6 +295,19 @@ func enter_die2() -> void:
 	animation_player.play("die2")
 
 #endregion die2 state
+
+#region heal state
+
+func enter_heal() -> void:
+	reset_velocitiy()
+	
+	animation_player.play("heal")
+
+func exit_heal() -> void:
+	update_soul(-3)
+	update_health(1)
+
+#endregion heal state
 
 #region utils
 

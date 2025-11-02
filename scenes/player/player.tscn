@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://jtrxw21anjyo"]
+[gd_scene load_steps=51 format=3 uid="uid://jtrxw21anjyo"]
 
 [ext_resource type="Texture2D" uid="uid://b5bgrdbde1pba" path="res://assets/player/小骑士待机精灵表.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://1s0sytwemc44" path="res://scenes/player/player.gd" id="1_dqkch"]
@@ -20,7 +20,9 @@
 [ext_resource type="Texture2D" uid="uid://dhrpex6yc73lt" path="res://assets/player/小骑士死亡2.png" id="14_6cv16"]
 [ext_resource type="Script" uid="uid://c71nuasgkf8na" path="res://scenes/player/states/attack_up.gd" id="15_a8ls1"]
 [ext_resource type="Script" uid="uid://bs33iqshrdj7u" path="res://scenes/player/states/attack.gd" id="15_qfm1y"]
+[ext_resource type="Texture2D" uid="uid://dvupi1gxjp0af" path="res://assets/player/小骑士回血 .png" id="15_uniwh"]
 [ext_resource type="Script" uid="uid://dlcndudifbhht" path="res://scenes/player/states/attack_down.gd" id="16_a8ls1"]
+[ext_resource type="Texture2D" uid="uid://c3i2oi53wa1gi" path="res://assets/player/小骑士回血成功.png" id="16_iqsei"]
 [ext_resource type="PackedScene" uid="uid://bui8vhonmrnth" path="res://scenes/player/states/black_dash.tscn" id="18_fulsm"]
 [ext_resource type="Script" uid="uid://bunfnd0a4j4ya" path="res://scenes/player/states/attack_jump.gd" id="18_i4ail"]
 [ext_resource type="PackedScene" uid="uid://ddxajo870fvv" path="res://scenes/hit_hurt_box/player_hurt_box.tscn" id="19_60mlk"]
@@ -28,6 +30,7 @@
 [ext_resource type="Script" uid="uid://de6l1cbnnd8u3" path="res://scenes/player/states/hurt.gd" id="21_l71n6"]
 [ext_resource type="Script" uid="uid://c0qrpxoqsalba" path="res://scenes/player/states/player_die_1.gd" id="24_j4nxn"]
 [ext_resource type="Script" uid="uid://bt1gicppbhggf" path="res://scenes/player/states/player_die_2.gd" id="25_28m0y"]
+[ext_resource type="Script" uid="uid://c1y2y0uog1hyh" path="res://scenes/player/states/player_heal.gd" id="28_tffgl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
 size = Vector2(8, 16)
@@ -2104,7 +2107,7 @@ tracks/11/path = NodePath("HurtBox/HurtBox:disabled")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PackedFloat32Array(0.45),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
@@ -2254,7 +2257,144 @@ tracks/11/path = NodePath("HurtBox/HurtBox:disabled")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PackedFloat32Array(0.45),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_iqsei"]
+resource_name = "heal1"
+length = 0.9
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteArea/Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("15_uniwh"), ExtResource("16_iqsei")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpriteArea/Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [4, 5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpriteArea/Sprite2D:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SpriteArea/Sprite2D:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 0, 1, 2, 3, 4, 2]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CollisionShape2D:shape")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("RectangleShape2D_3vyb7")]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SpriteArea/Sprite2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -16)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".:is_double_jumping")
+tracks/6/interp = 0
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Attack2HitBox/HitBox:disabled")
+tracks/7/interp = 0
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("AttackUpHitBox/HitBox:disabled")
+tracks/8/interp = 0
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("AttackDownHitBox/HitBox:disabled")
+tracks/9/interp = 0
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Attack1HitBox/HitBox:disabled")
+tracks/10/interp = 0
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
@@ -2272,6 +2412,7 @@ _data = {
 &"die2": SubResource("Animation_j4nxn"),
 &"double_jump": SubResource("Animation_ur7pv"),
 &"fall": SubResource("Animation_dqkch"),
+&"heal": SubResource("Animation_iqsei"),
 &"hurt": SubResource("Animation_l71n6"),
 &"idle": SubResource("Animation_g2els"),
 &"jump": SubResource("Animation_tuyoq"),
@@ -2357,6 +2498,10 @@ metadata/_custom_type_script = "uid://cw434ej3iy2hq"
 
 [node name="PlayerDie2" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("25_28m0y")
+metadata/_custom_type_script = "uid://cw434ej3iy2hq"
+
+[node name="PlayerHeal" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("28_tffgl")
 metadata/_custom_type_script = "uid://cw434ej3iy2hq"
 
 [node name="AttackTimer" type="Timer" parent="."]
