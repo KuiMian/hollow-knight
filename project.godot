@@ -20,6 +20,10 @@ run/main_scene="uid://deu1wgp0ygeir"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Global_HUD="*res://scenes/UI/HUD.tscn"
+
 [display]
 
 window/size/viewport_width=320

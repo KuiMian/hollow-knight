@@ -11,6 +11,6 @@ func get_next_state_str() -> String:
 	if actor.animation_player.is_playing():
 		next_state_str = "EndDashAttack"
 	else:
-		next_state_str = "ReleaseShockwave"
+		next_state_str = "ReleaseShockwave"  if randf() > 0.6 else "Idle"
 	
 	return prefix + next_state_str

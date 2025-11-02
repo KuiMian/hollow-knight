@@ -195,16 +195,25 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 
 func _on_attack_1_hit_box_area_entered(_area: Area2D) -> void:
 	velocity.x -= sign(direction) * knockback_speed
+	
+	update_soul(1)
 
 func _on_attack_2_hit_box_area_entered(_area: Area2D) -> void:
 	velocity.x -= sign(direction) * knockback_speed
+	
+	update_soul(1)
+	
 
 func _on_attack_up_hit_box_area_entered(_area: Area2D) -> void:
-	print("AttackUp")
+	update_soul(1)
+
 
 func _on_attack_down_hit_box_area_entered(_area: Area2D) -> void:
 	var force_state_str := "AttackJump"
 	force_transition.emit(force_state_str)
+	
+	update_soul(1)
+
 
 #endregion hit & hurt box
 
@@ -241,6 +250,8 @@ func enter_hurt() -> void:
 	velocity.x = - hurt_direction * 90
 	
 	invincible()
+	
+	update_health(-1)
 
 func exit_hurt() -> void:
 	hurt_direction = 0
@@ -262,6 +273,8 @@ func invincible() -> void:
 		if invincible_timer.is_stopped():
 			(hurt_box.get_child(0) as CollisionPolygon2D).disabled = false
 			break
+
+
 
 #endregion hurt state
 
@@ -335,5 +348,13 @@ func reset_velocitiy() -> void:
 func reset_skill() -> void:
 	can_dash = true
 	can_double_jump = true
+
+# 改变health并同步更新UI
+func update_health(v: int) -> void:
+	Global_HUD.player_health += v
+
+# 改变soul并同步更新UI
+func update_soul(v: int) -> void:
+	Global_HUD.player_soul += v
 
 #endregion utils

@@ -1,0 +1,416 @@
+[gd_scene load_steps=44 format=3 uid="uid://cbbuvuej75yrv"]
+
+[ext_resource type="Script" uid="uid://b6rjiwfswgp5k" path="res://scenes/UI/HUD.gd" id="1_c5elv"]
+[ext_resource type="Texture2D" uid="uid://d15se53lhh3lw" path="res://assets/灵魂槽01.png" id="1_m41qk"]
+[ext_resource type="Texture2D" uid="uid://dpq88ns68f16u" path="res://assets/灵魂槽02.png" id="2_35jxk"]
+[ext_resource type="Texture2D" uid="uid://ct8nkwleb75yx" path="res://assets/血条01.png" id="3_l8uv8"]
+[ext_resource type="Texture2D" uid="uid://btwg4gajsoafy" path="res://assets/灵魂槽03.png" id="3_tpnoy"]
+[ext_resource type="Texture2D" uid="uid://dgf5no24884po" path="res://assets/灵魂槽04.png" id="4_vb61p"]
+[ext_resource type="Texture2D" uid="uid://epx7bjom8qjv" path="res://assets/灵魂槽05.png" id="5_owlbh"]
+[ext_resource type="Texture2D" uid="uid://dnc2a16n667u7" path="res://assets/灵魂槽06.png" id="6_c5elv"]
+[ext_resource type="Texture2D" uid="uid://d15ph5tpdv2io" path="res://assets/灵魂槽07.png" id="8_cketn"]
+[ext_resource type="Texture2D" uid="uid://dft8bxidxhniu" path="res://assets/灵魂槽08.png" id="9_64obo"]
+[ext_resource type="Texture2D" uid="uid://dtwn5xdxv77yy" path="res://assets/灵魂槽09.png" id="10_7a1qy"]
+[ext_resource type="Texture2D" uid="uid://cxlvim28prr2i" path="res://assets/灵魂槽10.png" id="11_d68qh"]
+[ext_resource type="Texture2D" uid="uid://508vqjjx542x" path="res://assets/血条02.png" id="13_umf6b"]
+[ext_resource type="Texture2D" uid="uid://ck5hwp6pl3eu8" path="res://assets/血条03.png" id="14_4p8sv"]
+[ext_resource type="Texture2D" uid="uid://dtnqclhffy1tl" path="res://assets/血条04.png" id="15_6tc23"]
+[ext_resource type="Texture2D" uid="uid://bgd876pvgda6g" path="res://assets/血条05.png" id="16_q0fjp"]
+[ext_resource type="Texture2D" uid="uid://5gq7u32hltkg" path="res://assets/血条06.png" id="17_yyr6m"]
+[ext_resource type="Texture2D" uid="uid://dhaou0hnfeaf4" path="res://assets/血条07.png" id="18_tqkrj"]
+[ext_resource type="Texture2D" uid="uid://d2tym4gte4tqn" path="res://assets/血条08.png" id="19_uisvg"]
+[ext_resource type="Texture2D" uid="uid://djhna5p56rwgt" path="res://assets/血条09.png" id="20_331jc"]
+[ext_resource type="Texture2D" uid="uid://cy5xbrnwnrkp4" path="res://assets/血条10.png" id="21_eeaqk"]
+
+[sub_resource type="Animation" id="Animation_cketn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSoul:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_m41qk")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerHealth:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_l8uv8")]
+}
+
+[sub_resource type="Animation" id="Animation_64obo"]
+resource_name = "0"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSoul:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_m41qk")]
+}
+
+[sub_resource type="Animation" id="Animation_7a1qy"]
+resource_name = "1"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSoul:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_35jxk")]
+}
+
+[sub_resource type="Animation" id="Animation_34m55"]
+resource_name = "3"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSoul:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_vb61p")]
+}
+
+[sub_resource type="Animation" id="Animation_d68qh"]
+resource_name = "2"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSoul:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_tpnoy")]
+}
+
+[sub_resource type="Animation" id="Animation_4nac7"]
+resource_name = "5"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSoul:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_c5elv")]
+}
+
+[sub_resource type="Animation" id="Animation_teulp"]
+resource_name = "6"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSoul:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("8_cketn")]
+}
+
+[sub_resource type="Animation" id="Animation_krw1k"]
+resource_name = "7"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSoul:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("9_64obo")]
+}
+
+[sub_resource type="Animation" id="Animation_l8uv8"]
+resource_name = "8"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSoul:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("10_7a1qy")]
+}
+
+[sub_resource type="Animation" id="Animation_umf6b"]
+resource_name = "9"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSoul:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("11_d68qh")]
+}
+
+[sub_resource type="Animation" id="Animation_5t1j6"]
+resource_name = "4"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSoul:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_owlbh")]
+}
+
+[sub_resource type="Animation" id="Animation_y52ao"]
+resource_name = "health0"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerHealth:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_l8uv8")]
+}
+
+[sub_resource type="Animation" id="Animation_co6ef"]
+resource_name = "health1"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerHealth:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_umf6b")]
+}
+
+[sub_resource type="Animation" id="Animation_abj57"]
+resource_name = "health2"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerHealth:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("14_4p8sv")]
+}
+
+[sub_resource type="Animation" id="Animation_qswe1"]
+resource_name = "health3"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerHealth:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("15_6tc23")]
+}
+
+[sub_resource type="Animation" id="Animation_bqrud"]
+resource_name = "health4"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerHealth:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("16_q0fjp")]
+}
+
+[sub_resource type="Animation" id="Animation_3xcit"]
+resource_name = "health5"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerHealth:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("17_yyr6m")]
+}
+
+[sub_resource type="Animation" id="Animation_2xad8"]
+resource_name = "health6"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerHealth:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("18_tqkrj")]
+}
+
+[sub_resource type="Animation" id="Animation_0jw7r"]
+resource_name = "health7"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerHealth:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("19_uisvg")]
+}
+
+[sub_resource type="Animation" id="Animation_ecrqf"]
+resource_name = "health8"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerHealth:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("20_331jc")]
+}
+
+[sub_resource type="Animation" id="Animation_32kus"]
+resource_name = "health9"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerHealth:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("21_eeaqk")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_teulp"]
+_data = {
+&"RESET": SubResource("Animation_cketn"),
+&"health0": SubResource("Animation_y52ao"),
+&"health1": SubResource("Animation_co6ef"),
+&"health2": SubResource("Animation_abj57"),
+&"health3": SubResource("Animation_qswe1"),
+&"health4": SubResource("Animation_bqrud"),
+&"health5": SubResource("Animation_3xcit"),
+&"health6": SubResource("Animation_2xad8"),
+&"health7": SubResource("Animation_0jw7r"),
+&"health8": SubResource("Animation_ecrqf"),
+&"health9": SubResource("Animation_32kus"),
+&"soul0": SubResource("Animation_64obo"),
+&"soul1": SubResource("Animation_7a1qy"),
+&"soul2": SubResource("Animation_d68qh"),
+&"soul3": SubResource("Animation_34m55"),
+&"soul4": SubResource("Animation_5t1j6"),
+&"soul5": SubResource("Animation_4nac7"),
+&"soul6": SubResource("Animation_teulp"),
+&"soul7": SubResource("Animation_krw1k"),
+&"soul8": SubResource("Animation_l8uv8"),
+&"soul9": SubResource("Animation_umf6b")
+}
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_c5elv")
+
+[node name="PlayerSoul" type="Sprite2D" parent="."]
+position = Vector2(40, 24)
+texture = ExtResource("1_m41qk")
+
+[node name="PlayerSoulAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_teulp")
+}
+
+[node name="PlayerHealth" type="Sprite2D" parent="."]
+position = Vector2(96, 28)
+texture = ExtResource("3_l8uv8")
+
+[node name="PlayerHealthAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_teulp")
+}
