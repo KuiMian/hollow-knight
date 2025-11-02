@@ -4,4 +4,5 @@ Video Resource: [[从零开始复刻空洞骑士_哔哩哔哩bilibili_空洞骑�
 
 
 
-![image-20251101154452007](D:\DevTools\Godot\01Prototype\hollow-knight\Readme.assets\image-20251101154452007.png)
+![image-20251101154452007](https://cdn.jsdelivr.net/gh/KuiMian/NoteImage@master/2025/11/upgit_20251101_image-20251101154452007.png)
+
