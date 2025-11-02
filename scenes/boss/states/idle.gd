@@ -41,11 +41,16 @@ func get_next_state_str() -> String:
 	
 	#actor = get_actor()
 	
+	var action_frequency_ls := expand_by_weight_dict(next_state_dict)
+	
 	if actor.can_take_action:
 		if abs(actor.global_position.x - actor.player_position.x) <= 40:
 			next_state_str = "PrepareAttack1"
 		elif abs(actor.global_position.x - actor.player_position.x) <= 120:
 			next_state_str = "Move"
+		# Boss太靠近边界不会进入后跳状态
+		elif actor.global_position.x <= 16 or actor.global_position.x >= 288:
+			next_state_str = action_frequency_ls.filter(func(x): return x != "BackJump").pick_random()
 		else:
 			next_state_str = expand_by_weight_dict(next_state_dict).pick_random()
 
@@ -67,3 +72,20 @@ func expand_by_weight_dict(weight_map: Dictionary) -> Array:
 		for i in range(int(weight_map[key])):
 			_expanded.append(key)
 	return _expanded
+
+# 辅助函数，应放于global系文件
+func dict_head(d: Dictionary, n: int) -> Dictionary:
+	var result := {}
+	var keys = d.keys()
+	
+	# 生成 [key, value] 对并按 value 降序排列
+	var pairs: Array = []
+	for key in keys:
+		pairs.append([key, d[key]])
+	pairs.sort_custom(func(a, b): return a[1] > b[1])
+	
+	for i in range(min(n, pairs.size())):
+		var k = pairs[i][0]
+		result[k] = d[k]
+	
+	return result

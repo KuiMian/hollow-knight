@@ -237,7 +237,7 @@ func enter_back_jump() -> void:
 	animation_player.play("back_jump")
 	
 	velocity.x = -120 * sign(direction)
-	velocity.y = -600
+	velocity.y = -400
 
 func _physics_process4back_jump(delta: float) -> void:
 	velocity.x -= 20 * sign(direction) * delta
@@ -256,6 +256,19 @@ func _physics_process4back_fall(delta: float) -> void:
 	apply_gravity(delta)
 
 #endregion backjump state
+
+#region release shockwave state
+
+func enter_release_shockwave() -> void:
+	reset_velocitiy()
+	face_player()
+	animation_player.play("release_shockwave")
+
+#func _physics_process4release_shockwave(delta: float) -> void:
+	#apply_gravity(delta)
+
+#endregion release shockwave state
+
 
 #region utils
 

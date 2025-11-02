@@ -1,24 +1,21 @@
 extends BossState
-class_name BossBackFall
-
+class_name BossReleaseShockwave
 
 func Enter():
 	super.Enter()
 	
-	actor.enter_back_fall()
+	actor.enter_release_shockwave()
 
 func Update_phy(delta: float):
 	super.Update_phy(delta)
 	
-	actor._physics_process4back_fall(delta)
+	#actor._physics_process4release_shockwave(delta)
 
 func get_next_state_str() -> String:
-	if not actor.is_on_floor():
-		next_state_str = "BackFall"
-	else:
+	if actor.animation_player.is_playing():
 		next_state_str = "ReleaseShockwave"
+	else:
+		next_state_str = "Idle"
 		
-		# 跳跃后重置攻击间隔
-		actor.can_take_action = true
 	
 	return prefix + next_state_str
