@@ -116,6 +116,8 @@ func update_animation() -> void:
 #region dash state
 
 func enter_dash() -> void:
+	can_dash = false
+	
 	var dash_direction: int
 	if direction != 0:
 		dash_direction = sign(direction)
@@ -180,9 +182,6 @@ func enter_attack_down() -> void:
 	attack_timer.start()
 	animation_player.play("attack_down")
 
-func exit_attack_down() -> void:
-	pass
-
 #endregion attack_down state
 
 #region hit & hurt box
@@ -192,6 +191,8 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 	var force_state_str := "Hurt"
 	
 	force_transition.emit(force_state_str)
+	
+	update_health(-5)
 
 func _on_attack_1_hit_box_area_entered(_area: Area2D) -> void:
 	velocity.x -= sign(direction) * knockback_speed
@@ -250,8 +251,6 @@ func enter_hurt() -> void:
 	velocity.x = - hurt_direction * 90
 	
 	invincible()
-	
-	update_health(-1)
 
 func exit_hurt() -> void:
 	hurt_direction = 0
@@ -278,6 +277,19 @@ func invincible() -> void:
 
 #endregion hurt state
 
+#region die1 state
+
+func enter_die1() -> void:
+	animation_player.play("die1")
+
+#endregion die1 state
+
+#region die2 state
+
+func enter_die2() -> void:
+	animation_player.play("die2")
+
+#endregion die2 state
 
 #region utils
 

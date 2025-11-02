@@ -30,4 +30,7 @@ func get_next_state_str() -> String:
 	else:
 		next_state_str = "Normal"
 	
+	if Global_HUD.player_health <= 0:
+		next_state_str = "Die1"
+	
 	return prefix + next_state_str
