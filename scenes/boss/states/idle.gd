@@ -2,8 +2,8 @@ extends BossState
 class_name BossIdle
 
 
-#const NO_FORCE := 'NO_FORCE'
-#var force_state_str := NO_FORCE
+const NO_FORCE := 'NO_FORCE'
+var force_state_str := NO_FORCE
 
 @export var next_state_dict: Dictionary = {
 	"Jump": 1, 
@@ -33,13 +33,11 @@ func Exit():
 	reset_cooldown_time()
 
 func get_next_state_str() -> String:
-	#if force_state_str != NO_FORCE:
-		#var temp_state_str: String = force_state_str
-		#force_state_str = NO_FORCE
-		#
-		#return temp_state_str
-	
-	#actor = get_actor()
+	if force_state_str != NO_FORCE:
+		var temp_state_str: String = force_state_str
+		force_state_str = NO_FORCE
+		
+		return prefix + temp_state_str
 	
 	var action_frequency_ls := expand_by_weight_dict(next_state_dict)
 	
@@ -53,10 +51,9 @@ func get_next_state_str() -> String:
 			next_state_str = action_frequency_ls.filter(func(x): return x != "BackJump").pick_random()
 		else:
 			next_state_str = expand_by_weight_dict(next_state_dict).pick_random()
-
 	else:
 		next_state_str = "Idle"
-		
+	
 	return prefix + next_state_str
 
 func reset_cooldown_time() -> void:

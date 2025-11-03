@@ -36,6 +36,11 @@ const BOUNDARY := [16, 288]
 
 const DASH_SPEED := 400
 
+signal force_transition(force_state_str: String)
+
+var health := 2
+
+signal boss_died
 
 func _ready() -> void:
 	inject_dependency()
@@ -56,7 +61,7 @@ func _process(delta: float) -> void:
 		if time_count > 0.1:
 			time_count = 0
 			
-			print(velocity)
+			print(boss_state_machine.current_state_key)
 
 func _physics_process(delta: float) -> void:
 	boss_state_machine.process_phy_update(delta)
@@ -72,6 +77,16 @@ func _on_hurt_box_area_entered(_area: Area2D) -> void:
 	
 	await flash_timer.timeout
 	sprite_2d.use_parent_material = true
+	
+	health -= 1
+	
+	var force_state_str: String
+	if boss_state_machine.current_state_key == "BossStun":
+		force_state_str = "Idle"
+	else:
+		force_state_str = "Stun" if health > 0 else "Die" 
+
+	force_transition.emit(force_state_str)
 
 #region ready state
 
@@ -309,12 +324,36 @@ func enter_end_dash_attack() -> void:
 
 #endregion dash attack state
 
+#region stun state
+
+func enter_stun() -> void:
+	face_player()
+	animation_player.play("stun")
+
+func _physics_process4stun(delta: float) -> void:
+	apply_gravity(delta)
+
+#endregion stun state
+
+#region die state
+
+func enter_die() -> void:
+	animation_player.play("die")
+	boss_died.emit()
+
+#endregion die state
+
 #region utils
 
 func inject_dependency() -> void:
 	boss_state_machine.actor = self
 	for boss_state in boss_state_machine.get_children():
 		(boss_state as BossState).actor = self
+	
+	# Normal -> AttackJump 依赖注入
+	var node_names := ["BossIdle", "BossMove", "BossStun"]
+	for node_name in node_names:
+		force_transition.connect((boss_state_machine.get_node(node_name))._set_force_state)
 	
 	player = get_tree().get_nodes_in_group("players")[0]
 	locate_player()
@@ -339,6 +378,5 @@ func update_facing_direction() -> void:
 
 func reset_velocitiy() -> void:
 	velocity = Vector2.ZERO
-
 
 #endregion

@@ -1,5 +1,5 @@
 extends BossState
-class_name BossMove
+class_name BossStun
 
 const NO_FORCE := 'NO_FORCE'
 var force_state_str := NO_FORCE
@@ -10,13 +10,12 @@ func _set_force_state(new_force_state_str: String) -> void:
 func Enter():
 	super.Enter()
 	
-	actor.enter_move()
-
+	actor.enter_stun()
 
 func Update_phy(delta: float):
 	super.Update_phy(delta)
 	
-	actor._physics_process4move(delta)
+	actor._physics_process4stun(delta)
 
 func get_next_state_str() -> String:
 	if force_state_str != NO_FORCE:
@@ -24,10 +23,10 @@ func get_next_state_str() -> String:
 		force_state_str = NO_FORCE
 		
 		return prefix + temp_state_str
-		
-	if abs(actor.global_position.x - actor.player_position.x) >= 40:
-		next_state_str = "Move"
+	
+	if actor.animation_player.is_playing():
+		next_state_str = "Stun"
 	else:
-		next_state_str = "PrepareAttack1"
-		
+		next_state_str = "Idle"
+	
 	return prefix + next_state_str

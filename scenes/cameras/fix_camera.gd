@@ -3,6 +3,7 @@ extends Camera2D
 var player_position := Vector2.ZERO
 @onready var door: Door = $"../DeviceManager/Door"
 
+signal player_enter_battle_area
 
 func _ready() -> void:
 	global_position = Vector2(584, 376)
@@ -17,7 +18,7 @@ func _process(delta: float) -> void:
 		global_position.x = lerp(152.0, global_position.x, pow(2, -7 * delta))
 		
 		if door.can_work:
-			door.close()
+			player_enter_battle_area.emit()
 	
 	if player_position.x > 584:
 		global_position.x = lerp(584.0, global_position.x, pow(2, -7 * delta))
