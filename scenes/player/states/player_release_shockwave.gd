@@ -5,20 +5,16 @@ class_name PlayerReleaseShockwave
 func Enter():
 	super.Enter()
 	
-	var player := get_actor()
-	player.enter_heal()
+	actor.enter_release_shockwave()
 
 
 func Exit():
 	super.Enter()
 	
-	var player := get_actor()
-	player.exit_heal()
+	actor.exit_release_shockwave()
 
 func get_next_state_str() -> String:
-	var player := get_actor()
-	
-	if player.animation_player.is_playing():
+	if actor.animation_player.is_playing():
 		next_state_str =  "ReleaseShockwave"
 	else:
 		next_state_str = "Normal"

@@ -20,7 +20,12 @@ func _ready() -> void:
 func load_data(data: Dictionary) -> void:
 	speed_x = data["speed_x"]
 
-# 子类需待重构，这里以白波为例
+"""
+子类需待重构，这里以的素材属性设置仅以白波为例
+它们也可以放入spawner的data字典里，但是不容易管理。
+除非素材有高度的统一性，比如朝向、hframes等素材属性一致。
+这些属性涉及动画细节，可以硬写但是没必要。
+"""
 func set_texture() -> void:
 	sprite_2d.texture = projectile_texture
 	sprite_2d.hframes = 4

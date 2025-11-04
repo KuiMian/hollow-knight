@@ -7,8 +7,7 @@ var time_count: float
 func Enter():
 	super.Enter()
 	
-	var player := get_actor()
-	player.enter_hurt()
+	actor.enter_hurt()
 
 
 func Update_phy(_delta: float):
@@ -18,14 +17,11 @@ func Update_phy(_delta: float):
 func Exit():
 	super.Exit()
 	
-	var player := get_actor()
-	player.exit_hurt()
+	actor.exit_hurt()
 
 
 func get_next_state_str() -> String:
-	var player := get_actor()
-	
-	if player.animation_player.is_playing():
+	if actor.animation_player.is_playing():
 		next_state_str = "Hurt"
 	else:
 		next_state_str = "Normal"

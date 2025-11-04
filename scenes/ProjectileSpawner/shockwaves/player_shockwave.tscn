@@ -10,6 +10,8 @@ script = ExtResource("2_coa5n")
 projectile_texture = ExtResource("3_xehkv")
 
 [node name="PlayerHitBoxArea" parent="." index="2" instance=ExtResource("3_p7xdp")]
+collision_layer = 8
+collision_mask = 64
 
 [node name="HitBox" parent="PlayerHitBoxArea" index="0"]
 polygon = PackedVector2Array(22, 0, 32, -8, 32, -20, 22, -26, -18, -26, -18, 0)

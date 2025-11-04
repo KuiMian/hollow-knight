@@ -49,8 +49,7 @@ var hurt_direction := 0 # 0表示没有受击，±1表示水平受击方向
 
 @onready var invincible_timer: Timer = $InvincibleTimer
 
-@onready var shockwave_interval_timer: Timer = $ShockwaveIntervalTimer
-#@onready var shockwave_spawner: ShockwaveSpawner = $ShockwaveSpawner
+@onready var shockwave_spawner: PlayerShockwaveSpawner = $ShockwaveSpawner
 
 #endregion 变量与信号
 
@@ -68,10 +67,9 @@ func _process(delta: float) -> void:
 			time_count = 0
 			
 			var a = 0
-			if direction != 0:
-				a = "右" if direction >= 0 else "左"
+			a = "右" if last_facing_direction >= 0 else "左"
 				
-			print("碰撞方向 ", hurt_direction, " 面朝方向 " , a)
+			print(" 面朝方向 " , a)
 
 func _physics_process(delta: float) -> void:
 	player_state_machine.process_phy_update(delta)
@@ -97,6 +95,10 @@ func _physics_process4normal(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("heal") and Global_HUD.player_soul >= 3:
 		var force_state_str := "Heal"
+		force_transition.emit(force_state_str)
+	
+	if Input.is_action_just_pressed("shorckwave") and Global_HUD.player_soul >= 3:
+		var force_state_str := "ReleaseShockwave"
 		force_transition.emit(force_state_str)
 	
 	apply_movement(delta)
@@ -318,14 +320,13 @@ func enter_release_shockwave() -> void:
 	
 	animation_player.play("release_shockwave")
 
-	shockwave_interval_timer.start()
+	shockwave_spawner.timer.start()
 
-#func release_shockwave() -> void:
-	#shockwave_spawner.spawn_shockwave()
+func release_shockwave() -> void:
+	shockwave_spawner.spawn_projectile()
 
 func exit_release_shockwave() -> void:
 	update_soul(-3)
-	update_health(1)
 
 #endregion release shockwave state
 

@@ -31,14 +31,13 @@ const BOUNDARY := [16, 288]
 
 @onready var spike_spawner: SpikeSpawner = $SpikeSpawner
 
-@onready var shockwave_spawner: BossShockwaveSpawner = $BossShockwaveSpawner
-@onready var shockwave_interval_timer: Timer = $ShockwaveIntervalTimer
+@onready var shockwave_spawner: BossShockwaveSpawner = $ShockwaveSpawner
 
 const DASH_SPEED := 400
 
 signal force_transition(force_state_str: String)
 
-var health := 5
+var health := 15
 
 signal boss_died
 
@@ -58,10 +57,10 @@ func _process(delta: float) -> void:
 	
 	if debug:
 		time_count += delta
-		if time_count > 0.1:
+		if time_count > 1:
 			time_count = 0
 			
-			print(boss_state_machine.current_state_key)
+			print(health)
 
 func _physics_process(delta: float) -> void:
 	boss_state_machine.process_phy_update(delta)
@@ -286,7 +285,7 @@ func enter_release_shockwave() -> void:
 	face_player()
 	animation_player.play("release_shockwave")
 	
-	shockwave_interval_timer.start()
+	shockwave_spawner.timer.start()
 
 func release_shockwave() -> void:
 	shockwave_spawner.spawn_projectile()
