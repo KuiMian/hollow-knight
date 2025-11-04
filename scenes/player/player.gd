@@ -93,13 +93,18 @@ func _physics_process4normal(delta: float) -> void:
 	if velocity.y < 0 and not Input.is_action_pressed("jump"):
 		velocity.y += SHORT_JUMP_FACTOR * gravity * delta
 	
-	if Input.is_action_just_pressed("heal") and Global_HUD.player_soul >= 3:
-		var force_state_str := "Heal"
-		force_transition.emit(force_state_str)
+	if Global_HUD.player_soul >= 3:
+		if Input.is_action_just_pressed("heal"):
+			var force_state_str := "Heal"
+			force_transition.emit(force_state_str)
 	
-	if Input.is_action_just_pressed("shorckwave") and Global_HUD.player_soul >= 3:
-		var force_state_str := "ReleaseShockwave"
-		force_transition.emit(force_state_str)
+		if Input.is_action_just_pressed("use_skill"):
+			if Input.is_action_pressed("look_up"):
+				var force_state_str := "RoarAttack"
+				force_transition.emit(force_state_str)
+			else:
+				var force_state_str := "ReleaseShockwave"
+				force_transition.emit(force_state_str)
 	
 	apply_movement(delta)
 	
@@ -329,6 +334,20 @@ func exit_release_shockwave() -> void:
 	update_soul(-3)
 
 #endregion release shockwave state
+
+#region roar attack state
+
+func enter_roar_attack() -> void:
+	reset_velocitiy()
+	
+	animation_player.play("roar_attack")
+
+	#shockwave_spawner.timer.start()
+
+func exit_roar_attack() -> void:
+	update_soul(-3)
+
+#endregion roar attack state
 
 #region utils
 
