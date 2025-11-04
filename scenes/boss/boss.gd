@@ -80,12 +80,20 @@ func _on_hurt_box_area_entered(_area: Area2D) -> void:
 	health -= 1
 	
 	var force_state_str: String
+	# 僵直状态受击迅速脱离僵直
 	if boss_state_machine.current_state_key == "BossStun":
 		force_state_str = "Idle"
+		force_transition.emit(force_state_str)
+	
+	if health > 0:
+		# Idle & Move状态下受击僵直
+		if boss_state_machine.current_state_key in ["BossIdle", "BossMove"]:
+			force_state_str = "Stun"
+			force_transition.emit(force_state_str)
+	# 生命值降为0进入死亡状态
 	else:
-		force_state_str = "Stun" if health > 0 else "Die" 
-
-	force_transition.emit(force_state_str)
+		force_state_str = "Die"
+		force_transition.emit(force_state_str)
 
 #region ready state
 
@@ -327,6 +335,7 @@ func enter_end_dash_attack() -> void:
 
 func enter_stun() -> void:
 	face_player()
+	reset_velocitiy()
 	animation_player.play("stun")
 
 func _physics_process4stun(delta: float) -> void:

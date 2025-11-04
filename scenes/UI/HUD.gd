@@ -1,7 +1,7 @@
 extends CanvasLayer
 class_name HUD
 
-var player_soul := 0 : 
+var player_soul := 9 : 
 	set(v):
 		player_soul = min(max(0, v), 9)
 		refresh_player_soul()

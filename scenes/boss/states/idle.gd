@@ -44,7 +44,7 @@ func get_next_state_str() -> String:
 	if actor.can_take_action:
 		if abs(actor.global_position.x - actor.player_position.x) <= 40:
 			next_state_str = "PrepareAttack1"
-		elif abs(actor.global_position.x - actor.player_position.x) <= 120:
+		elif abs(actor.global_position.x - actor.player_position.x) <= 140:
 			next_state_str = "Move"
 		# Boss太靠近边界不会进入后跳状态
 		elif actor.global_position.x <= actor.BOUNDARY.front() or actor.global_position.x >= actor.BOUNDARY.back():

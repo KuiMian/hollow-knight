@@ -48,7 +48,7 @@
 [ext_resource type="Script" uid="uid://cce7p23q2xu6b" path="res://scenes/boss/states/boss_hurt.gd" id="42_x25um"]
 [ext_resource type="Script" uid="uid://v1eporuvj6m2" path="res://scenes/boss/states/boss_die.gd" id="43_f87r5"]
 [ext_resource type="Script" uid="uid://cjvrut3y3dw6b" path="res://scenes/ProjectileSpawner/boss_shockwave_spawner.gd" id="48_pr37f"]
-[ext_resource type="PackedScene" uid="uid://d2r1lyia68hna" path="res://scenes/ProjectileSpawner/shockwaves/player_shockwave.tscn" id="49_v8ycl"]
+[ext_resource type="PackedScene" uid="uid://bjjpbiodotyau" path="res://scenes/ProjectileSpawner/shockwaves/boss_shockwave.tscn" id="49_v8ycl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i4fbv"]
 shader = ExtResource("2_iva7r")

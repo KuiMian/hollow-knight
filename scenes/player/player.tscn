@@ -35,7 +35,7 @@
 [ext_resource type="Script" uid="uid://bj2h18w5lh3k2" path="res://scenes/player/states/player_release_shockwave.gd" id="30_4hvnv"]
 [ext_resource type="PackedScene" uid="uid://bm2hucyfjdb10" path="res://scenes/ProjectileSpawner/projectile_spawner.tscn" id="34_4hvnv"]
 [ext_resource type="Script" uid="uid://dsjbhjgddak37" path="res://scenes/ProjectileSpawner/player_shockwave_spawner.gd" id="35_bbmj2"]
-[ext_resource type="PackedScene" uid="uid://bcbrva1jgcim" path="res://scenes/shockwave_spawner/boss_shockwave.tscn" id="36_kxw46"]
+[ext_resource type="PackedScene" uid="uid://d2r1lyia68hna" path="res://scenes/ProjectileSpawner/shockwaves/player_shockwave.tscn" id="36_kxw46"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
 size = Vector2(8, 16)

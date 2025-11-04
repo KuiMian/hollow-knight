@@ -47,5 +47,5 @@ func spawn_projectile() -> void:
 	projectile.global_position = get_positon()
 	
 	#print("Actor:", actor, " Manager:", manager, " Initial position:", get_positon(), " Direction:", get_direction())
-	print(actor.global_position.x, "  ", projectile.global_position.x)
+	#print(actor.global_position.x, "  ", projectile.global_position.x)
 	manager.add_child(projectile)

@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://bjjpbiodotyau"]
+
+[ext_resource type="PackedScene" uid="uid://cd4mffxx21t4n" path="res://scenes/ProjectileSpawner/projectile.tscn" id="1_ad5ea"]
+[ext_resource type="Texture2D" uid="uid://bswixt4vq14yd" path="res://assets/白波本体.png" id="3_7i0is"]
+[ext_resource type="PackedScene" uid="uid://bjwsq6k45mpss" path="res://scenes/hit_hurt_box/enemy_hit_box.tscn" id="3_68hfh"]
+
+[sub_resource type="GDScript" id="GDScript_urkge"]
+script/source = "extends Projectile
+class_name BossShockwave
+
+@onready var enemy_hit_box_area: EnemyHitBox = $EnemyHitBoxArea
+
+
+func set_texture() -> void:
+	sprite_2d.texture = projectile_texture
+	sprite_2d.hframes = 4
+	sprite_2d.vframes = 1
+	sprite_2d.frame = 0
+	sprite_2d.position = Vector2(0, -16)
+
+func _update_facing_direction() -> void:
+	super._update_facing_direction()
+	
+	enemy_hit_box_area.scale.x = - sign(direction)
+"
+
+[node name="BossShockwave" instance=ExtResource("1_ad5ea")]
+script = SubResource("GDScript_urkge")
+projectile_texture = ExtResource("3_7i0is")
+
+[node name="EnemyHitBoxArea" parent="." index="2" instance=ExtResource("3_68hfh")]
+collision_layer = 32
+collision_mask = 16
+
+[node name="HitBox" parent="EnemyHitBoxArea" index="0"]
+polygon = PackedVector2Array(-16, 1, -26, -7, -26, -19, -16, -25, 16, -25, 16, 1)
+
+[editable path="EnemyHitBoxArea"]
