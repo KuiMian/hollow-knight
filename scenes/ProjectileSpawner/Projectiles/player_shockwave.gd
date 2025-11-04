@@ -6,7 +6,7 @@ class_name PlayerShockwave
 
 
 func _ready() -> void:
-	# 这里可以产生碰撞时销毁projectile
+	# 碰撞时销毁
 	player_hit_box_area.area_entered.connect(
 		func(_area: Area2D) -> void:
 			queue_free_flag = true

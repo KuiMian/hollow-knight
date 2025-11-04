@@ -29,7 +29,7 @@ func play_animation() -> void:
 
 func load_data(data: Dictionary) -> void:
 	direction = data["initial_direction"]
-	global_position = data["initial_position"] + Vector2(data["offset_x"] * direction, 0) 
+	global_position = data["initial_position"] + Vector2(data["offset_x"] * direction, data["offset_y"]) 
 	speed = Vector2(data["speed_x"] * direction, data["speed_y"])
 
 # 子类需重构，添加hit & hurt box的朝向处理

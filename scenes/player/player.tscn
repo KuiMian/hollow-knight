@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://jtrxw21anjyo"]
+[gd_scene load_steps=62 format=3 uid="uid://jtrxw21anjyo"]
 
 [ext_resource type="Texture2D" uid="uid://b5bgrdbde1pba" path="res://assets/player/小骑士待机精灵表.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://1s0sytwemc44" path="res://scenes/player/player.gd" id="1_dqkch"]
@@ -38,6 +38,8 @@
 [ext_resource type="PackedScene" uid="uid://bm2hucyfjdb10" path="res://scenes/ProjectileSpawner/projectile_spawner.tscn" id="34_4hvnv"]
 [ext_resource type="Script" uid="uid://dsjbhjgddak37" path="res://scenes/ProjectileSpawner/Spawners/player_shockwave_spawner.gd" id="35_bbmj2"]
 [ext_resource type="PackedScene" uid="uid://d2r1lyia68hna" path="res://scenes/ProjectileSpawner/Projectiles/player_shockwave.tscn" id="36_kxw46"]
+[ext_resource type="PackedScene" uid="uid://uheatr4rg2fo" path="res://scenes/ProjectileSpawner/Projectiles/player_roar.tscn" id="38_5q8fn"]
+[ext_resource type="Script" uid="uid://dlxowh2snfx7g" path="res://scenes/ProjectileSpawner/Spawners/projectile_spawner.gd" id="39_7obkq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
 size = Vector2(8, 16)
@@ -2694,6 +2696,20 @@ tracks/10/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/11/type = "method"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath(".")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0.25),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"release_roar"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dqkch"]
 _data = {
@@ -2882,9 +2898,20 @@ projectile_data = {
 }
 projectile_scene = ExtResource("36_kxw46")
 
+[node name="RoarSpawner" parent="." instance=ExtResource("34_4hvnv")]
+script = ExtResource("39_7obkq")
+projectile_data = {
+"offset_x": 0,
+"offset_y": -8,
+"speed_x": 0,
+"speed_y": 0
+}
+projectile_scene = ExtResource("38_5q8fn")
+
 [editable path="HurtBox"]
 [editable path="Attack1HitBox"]
 [editable path="Attack2HitBox"]
 [editable path="AttackUpHitBox"]
 [editable path="AttackDownHitBox"]
 [editable path="ShockwaveSpawner"]
+[editable path="RoarSpawner"]

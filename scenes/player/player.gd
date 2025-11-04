@@ -51,6 +51,8 @@ var hurt_direction := 0 # 0表示没有受击，±1表示水平受击方向
 
 @onready var shockwave_spawner: PlayerShockwaveSpawner = $ShockwaveSpawner
 
+@onready var roar_spawner: RoarSpawner = $RoarSpawner
+
 #endregion 变量与信号
 
 func _ready() -> void:
@@ -342,7 +344,10 @@ func enter_roar_attack() -> void:
 	
 	animation_player.play("roar_attack")
 
-	#shockwave_spawner.timer.start()
+	roar_spawner.timer.start()
+
+func release_roar() -> void:
+	roar_spawner.spawn_projectile()
 
 func exit_roar_attack() -> void:
 	update_soul(-3)
