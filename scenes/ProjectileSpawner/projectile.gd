@@ -17,7 +17,8 @@ func _ready() -> void:
 	_update_facing_direction()
 	animation_player.play("default")
 
-
+func load_data(data: Dictionary) -> void:
+	speed_x = data["speed_x"]
 
 # 子类需待重构，这里以白波为例
 func set_texture() -> void:

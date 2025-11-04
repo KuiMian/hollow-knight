@@ -1,8 +1,8 @@
 [gd_scene load_steps=3 format=3 uid="uid://bm2hucyfjdb10"]
 
 [ext_resource type="Script" uid="uid://cjvrut3y3dw6b" path="res://scenes/shockwave_spawner/boss_shockwave_spawner.gd" id="1_uatul"]
-[ext_resource type="PackedScene" uid="uid://bcbrva1jgcim" path="res://scenes/shockwave_spawner/boss_shockwave.tscn" id="2_uatul"]
+[ext_resource type="PackedScene" uid="uid://d2r1lyia68hna" path="res://scenes/ProjectileSpawner/shockwaves/player_shockwave.tscn" id="2_gogew"]
 
 [node name="BossShockwaveSpawner" type="Node2D"]
 script = ExtResource("1_uatul")
-projectile_scene = ExtResource("2_uatul")
+projectile_scene = ExtResource("2_gogew")

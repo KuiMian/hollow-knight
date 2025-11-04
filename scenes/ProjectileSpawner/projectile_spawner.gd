@@ -1,9 +1,11 @@
 extends Node2D
 class_name ProjectileSpawner
 
+@export var projectile_data: Dictionary = {
+	"start_pos": 8,
+	"speed_x": 240,
+}
 
-
-@export var start_pos: int = 8
 @export var projectile_scene: PackedScene
 
 var actor: Node2D
@@ -22,7 +24,7 @@ func get_manager() -> Node:
 func get_positon() -> Vector2i:
 	# 默认从沿着actor的朝向start_pos个像素的位置生成projectile
 	initial_position = actor.global_position
-	initial_position.x += sign(actor.direction) * start_pos
+	initial_position.x += sign(actor.direction) * projectile_data["start_pos"]
 	
 	return initial_position
 
@@ -37,6 +39,7 @@ func spawn_projectile() -> void:
 	manager = get_manager()
 	
 	var projectile: Projectile = projectile_scene.instantiate()
+	projectile.load_data(projectile_data)
 	
 	projectile.global_position = get_positon()
 	projectile.direction = get_direction()
