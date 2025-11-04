@@ -22,7 +22,9 @@ func get_next_state_str() -> String:
 	
 	actor = get_actor()
 	
-	if Input.is_action_just_pressed("dash") and actor.can_dash:
+	if Input.is_action_just_pressed("shorckwave") and actor.shockwave_interval_timer.is_stopped():
+		next_state_str = "ReleaseShockwave"
+	elif Input.is_action_just_pressed("dash") and actor.can_dash:
 		next_state_str = "Dash"
 	elif Input.is_action_just_pressed("attack") and actor.attack_timer.is_stopped():
 		if Input.is_action_pressed("look_up"):

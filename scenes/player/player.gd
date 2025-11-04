@@ -49,6 +49,8 @@ var hurt_direction := 0 # 0表示没有受击，±1表示水平受击方向
 
 @onready var invincible_timer: Timer = $InvincibleTimer
 
+@onready var shockwave_interval_timer: Timer = $ShockwaveIntervalTimer
+#@onready var shockwave_spawner: ShockwaveSpawner = $ShockwaveSpawner
 
 #endregion 变量与信号
 
@@ -308,6 +310,24 @@ func exit_heal() -> void:
 	update_health(1)
 
 #endregion heal state
+
+#region release shockwave state
+
+func enter_release_shockwave() -> void:
+	reset_velocitiy()
+	
+	animation_player.play("release_shockwave")
+
+	shockwave_interval_timer.start()
+
+#func release_shockwave() -> void:
+	#shockwave_spawner.spawn_shockwave()
+
+func exit_release_shockwave() -> void:
+	update_soul(-3)
+	update_health(1)
+
+#endregion release shockwave state
 
 #region utils
 

@@ -39,4 +39,6 @@ script = ExtResource("4_jyhfs")
 z_index = 1
 position = Vector2(32, 432)
 
+[node name="ProjectileManager" type="Node" parent="." groups=["ally_manager"]]
+
 [editable path="TileMapManager"]

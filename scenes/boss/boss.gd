@@ -31,14 +31,14 @@ const BOUNDARY := [16, 288]
 
 @onready var spike_spawner: SpikeSpawner = $SpikeSpawner
 
-@onready var shockwave_spawner: ShockwaveSpawner = $ShockwaveSpawner
+@onready var shockwave_spawner: BossShockwaveSpawner = $BossShockwaveSpawner
 @onready var shockwave_interval_timer: Timer = $ShockwaveIntervalTimer
 
 const DASH_SPEED := 400
 
 signal force_transition(force_state_str: String)
 
-var health := 2
+var health := 5
 
 signal boss_died
 
@@ -289,7 +289,7 @@ func enter_release_shockwave() -> void:
 	shockwave_interval_timer.start()
 
 func release_shockwave() -> void:
-	shockwave_spawner.spawn_shockwave()
+	shockwave_spawner.spawn_projectile()
 
 #endregion release shockwave state
 

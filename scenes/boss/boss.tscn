@@ -42,7 +42,7 @@
 [ext_resource type="Script" uid="uid://dym27fexyaen" path="res://scenes/boss/states/boss_back_fall.gd" id="30_wu8me"]
 [ext_resource type="Script" uid="uid://dipjktbs71i6j" path="res://scenes/boss/states/boss_release_shock_wave.gd" id="32_43r1o"]
 [ext_resource type="Script" uid="uid://be6k86rqykf81" path="res://scenes/boss/states/boss_dash_attack.gd" id="33_awewf"]
-[ext_resource type="PackedScene" uid="uid://bm2hucyfjdb10" path="res://scenes/shockwave_spawner/shockwave_spawner.tscn" id="36_7s4nb"]
+[ext_resource type="PackedScene" uid="uid://bm2hucyfjdb10" path="res://scenes/shockwave_spawner/boss_shockwave_spawner.tscn" id="36_7s4nb"]
 [ext_resource type="Script" uid="uid://dd24vphvo5pa8" path="res://scenes/boss/states/boss_prepare_dash_attack.gd" id="36_v1cwn"]
 [ext_resource type="Script" uid="uid://bh34r76kymr6g" path="res://scenes/boss/states/boss_end_dash_attack.gd" id="38_rt8hl"]
 [ext_resource type="Script" uid="uid://cce7p23q2xu6b" path="res://scenes/boss/states/boss_hurt.gd" id="42_x25um"]
@@ -3375,7 +3375,7 @@ one_shot = true
 
 [node name="SpikeSpawner" parent="." instance=ExtResource("29_4jo18")]
 
-[node name="ShockwaveSpawner" parent="." instance=ExtResource("36_7s4nb")]
+[node name="BossShockwaveSpawner" parent="." instance=ExtResource("36_7s4nb")]
 
 [editable path="HurtBox"]
 [editable path="BodyHitBox"]

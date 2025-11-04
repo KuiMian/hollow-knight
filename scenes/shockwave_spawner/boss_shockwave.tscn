@@ -1,54 +1,42 @@
 [gd_scene load_steps=7 format=3 uid="uid://bcbrva1jgcim"]
 
-[ext_resource type="Script" uid="uid://4xkd751pycax" path="res://scenes/shockwave_spawner/shockwave.gd" id="1_8dqwq"]
-[ext_resource type="Texture2D" uid="uid://bswixt4vq14yd" path="res://assets/白波本体.png" id="1_lg41n"]
-[ext_resource type="PackedScene" uid="uid://bjwsq6k45mpss" path="res://scenes/hit_hurt_box/enemy_hit_box.tscn" id="1_mab5d"]
+[ext_resource type="Script" uid="uid://4xkd751pycax" path="res://scenes/shockwave_spawner/boss_shockwave.gd" id="1_85v18"]
+[ext_resource type="Texture2D" uid="uid://bswixt4vq14yd" path="res://assets/白波本体.png" id="2_ic6jy"]
+[ext_resource type="PackedScene" uid="uid://bjwsq6k45mpss" path="res://scenes/hit_hurt_box/enemy_hit_box.tscn" id="3_f8rvh"]
 
 [sub_resource type="Animation" id="Animation_1lmdh"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SpriteArea/Sprite2D:texture")
+tracks/0/path = NodePath("SpriteArea/Sprite2D:hframes")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_lg41n")]
+"values": [4]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("SpriteArea/Sprite2D:hframes")
+tracks/1/path = NodePath("SpriteArea/Sprite2D:vframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [4]
+"values": [1]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("SpriteArea/Sprite2D:vframes")
+tracks/2/path = NodePath("SpriteArea/Sprite2D:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("SpriteArea/Sprite2D:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -63,46 +51,34 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SpriteArea/Sprite2D:texture")
+tracks/0/path = NodePath("SpriteArea/Sprite2D:hframes")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_lg41n")]
+"values": [4]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("SpriteArea/Sprite2D:hframes")
+tracks/1/path = NodePath("SpriteArea/Sprite2D:vframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [4]
+"values": [1]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("SpriteArea/Sprite2D:vframes")
+tracks/2/path = NodePath("SpriteArea/Sprite2D:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("SpriteArea/Sprite2D:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
@@ -115,14 +91,15 @@ _data = {
 &"default": SubResource("Animation_8dqwq")
 }
 
-[node name="Shockwave" type="Node2D"]
-script = ExtResource("1_8dqwq")
+[node name="BossShockwave" type="Node2D"]
+script = ExtResource("1_85v18")
+projectile_texture = ExtResource("2_ic6jy")
 
 [node name="SpriteArea" type="Area2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteArea"]
 position = Vector2(0, -16)
-texture = ExtResource("1_lg41n")
+texture = ExtResource("2_ic6jy")
 hframes = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -130,11 +107,11 @@ libraries = {
 &"": SubResource("AnimationLibrary_rkov0")
 }
 
-[node name="EnemyHitBox" parent="." instance=ExtResource("1_mab5d")]
+[node name="EnemyHitBoxArea" parent="." instance=ExtResource("3_f8rvh")]
 collision_layer = 32
 collision_mask = 16
 
-[node name="HitBox" parent="EnemyHitBox" index="0"]
+[node name="HitBox" parent="EnemyHitBoxArea" index="0"]
 polygon = PackedVector2Array(-12, 1, -26, -7, -26, -19, -12, -27, 20, -27, 20, 1)
 
-[editable path="EnemyHitBox"]
+[editable path="EnemyHitBoxArea"]
