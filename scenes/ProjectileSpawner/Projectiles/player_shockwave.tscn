@@ -191,7 +191,6 @@ _data = {
 
 [node name="PlayerShockwave" instance=ExtResource("1_3fha6")]
 script = ExtResource("2_coa5n")
-projectile_texture = ExtResource("3_xehkv")
 
 [node name="Sprite2D" parent="SpriteArea" index="0"]
 position = Vector2(0, -16)

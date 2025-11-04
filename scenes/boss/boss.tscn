@@ -47,7 +47,7 @@
 [ext_resource type="Script" uid="uid://bh34r76kymr6g" path="res://scenes/boss/states/boss_end_dash_attack.gd" id="38_rt8hl"]
 [ext_resource type="Script" uid="uid://cce7p23q2xu6b" path="res://scenes/boss/states/boss_hurt.gd" id="42_x25um"]
 [ext_resource type="Script" uid="uid://v1eporuvj6m2" path="res://scenes/boss/states/boss_die.gd" id="43_f87r5"]
-[ext_resource type="Script" uid="uid://cjvrut3y3dw6b" path="res://scenes/ProjectileSpawner/boss_shockwave_spawner.gd" id="48_pr37f"]
+[ext_resource type="Script" uid="uid://cjvrut3y3dw6b" path="res://scenes/ProjectileSpawner/Spawners/boss_shockwave_spawner.gd" id="48_pr37f"]
 [ext_resource type="PackedScene" uid="uid://dm81n8u5lsax2" path="res://scenes/ProjectileSpawner/Projectiles/boss_shockwave.tscn" id="49_v8ycl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i4fbv"]
@@ -3378,6 +3378,12 @@ one_shot = true
 
 [node name="ShockwaveSpawner" parent="." instance=ExtResource("36_7s4nb")]
 script = ExtResource("48_pr37f")
+projectile_data = {
+"offset_x": 8,
+"offset_y": 0,
+"speed_x": 360,
+"speed_y": 0
+}
 projectile_scene = ExtResource("49_v8ycl")
 
 [editable path="HurtBox"]

@@ -11,7 +11,5 @@ func get_manager() -> Node:
 
 # 这里用player.direction不行。
 # 因为Normal状态下，若无左右输入，direction为0，从而projectile的direction为0
-func get_direction() -> int:
-	initial_direction = sign(actor.last_facing_direction)
-	
-	return initial_direction
+func set_direction_data() -> void:
+	projectile_data["initial_direction"] = sign(actor.last_facing_direction)
