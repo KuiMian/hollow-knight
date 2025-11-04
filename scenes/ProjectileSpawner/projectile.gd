@@ -11,6 +11,8 @@ var direction := 0
 
 @export var projectile_texture: Texture2D
 
+var queue_free_flag := false
+
 
 func _ready() -> void:
 	set_texture()
@@ -35,8 +37,17 @@ func set_texture() -> void:
 
 func _process(delta: float) -> void:
 	position.x += direction * speed_x * delta
+	
+	check_qf_flag()
+	
+	if queue_free_flag:
+		queue_free()
 
 # 子类需重构，添加hit & hurt box的朝向处理
 # 另外，本体的朝向可能需要修改±，视素材的朝向而定 
 func _update_facing_direction() -> void:
 	sprite_area.scale.x = - sign(direction)
+
+# 这里子类负责重构projectile消失的条件
+func check_qf_flag() -> void:
+	pass
