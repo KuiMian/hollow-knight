@@ -3190,7 +3190,6 @@ _data = {
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_irgnd")
-debug = true
 
 [node name="SpriteArea" type="Area2D" parent="."]
 

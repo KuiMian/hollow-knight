@@ -13,6 +13,9 @@ const FRICTION_FACTOR := 2 * ACCELERATION
 const MAXDASHSPEED := 300
 const SECOND_JUMP_VELOCITY := JUMP_VELOCITY
 const knockback_speed := 60
+const DOWNSMASH_SPEED := 360
+
+const NO_FORCE := "NO_FORCE"
 
 @export var debug := true
 var time_count := 0.0
@@ -52,6 +55,8 @@ var hurt_direction := 0 # 0表示没有受击，±1表示水平受击方向
 @onready var shockwave_spawner: PlayerShockwaveSpawner = $ShockwaveSpawner
 
 @onready var roar_spawner: RoarSpawner = $RoarSpawner
+
+@onready var down_smash_spawner: DownSmashSpawner = $DownSmashSpawner
 
 #endregion 变量与信号
 
@@ -95,18 +100,24 @@ func _physics_process4normal(delta: float) -> void:
 	if velocity.y < 0 and not Input.is_action_pressed("jump"):
 		velocity.y += SHORT_JUMP_FACTOR * gravity * delta
 	
+	var force_state_str := NO_FORCE
 	if Global_HUD.player_soul >= 3:
 		if Input.is_action_just_pressed("heal"):
-			var force_state_str := "Heal"
+			force_state_str = "Heal"
 			force_transition.emit(force_state_str)
 	
 		if Input.is_action_just_pressed("use_skill"):
 			if Input.is_action_pressed("look_up"):
-				var force_state_str := "RoarAttack"
+				force_state_str = "RoarAttack"
 				force_transition.emit(force_state_str)
+			elif Input.is_action_pressed("look_down"):
+				force_state_str = "PrepareDownSmash1"
 			else:
-				var force_state_str := "ReleaseShockwave"
+				force_state_str = "ReleaseShockwave"
 				force_transition.emit(force_state_str)
+	
+	if force_state_str != NO_FORCE:
+		force_transition.emit(force_state_str)
 	
 	apply_movement(delta)
 	
@@ -353,6 +364,45 @@ func exit_roar_attack() -> void:
 	update_soul(-3)
 
 #endregion roar attack state
+
+#region prepare down smash 1 state
+
+func enter_prepare_down_smash_1() -> void:
+	reset_velocitiy()
+	
+	animation_player.play("prepare_down_smash1")
+
+func exit_prepare_down_smash_1() -> void:
+	update_soul(-3)
+
+#endregion prepare down smash 1 state
+
+#region prepare down smash 2 state
+
+func enter_prepare_down_smash_2() -> void:
+	animation_player.play("prepare_down_smash2")
+
+func _physics_process4prepare_down_smash_2(delta: float) -> void:
+	velocity.x = 0
+	velocity.y = DOWNSMASH_SPEED
+	
+	apply_gravity(delta)
+
+#endregion prepare down smash 1 state
+
+#region prepare down smash 2 state
+
+func enter_down_smash() -> void:
+	reset_velocitiy()
+	
+	animation_player.play("down_smash")
+
+	down_smash_spawner.timer.start()
+
+func release_down_smash() -> void:
+	down_smash_spawner.spawn_projectile()
+
+#endregion prepare down smash 1 state
 
 #region utils
 
