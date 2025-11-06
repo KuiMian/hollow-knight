@@ -38,8 +38,26 @@ func match_player_position(delta: float) -> void:
 	if player_position.x > 584:
 		global_position.x = lerp(584.0, global_position.x, pow(2, -7 * delta))
 
-func shake_small():
+func shake_small() -> void:
 	shake_strength = 3
 
-func shake_big():
+func shake_big() -> void:
 	shake_strength = 16
+
+func freeze_time(freeze_strength: float = 0.6, active_time: float = 0.03) -> void:
+	var freeze_timer := Timer.new()
+	freeze_timer.wait_time = active_time
+	freeze_timer.one_shot = true
+	freeze_timer.timeout.connect(
+		func() -> void:
+			Engine.time_scale = 1
+	)
+	
+	add_child(freeze_timer)
+	
+	Engine.time_scale = freeze_strength
+	freeze_timer.start()
+	
+	
+	
+	

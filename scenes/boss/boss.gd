@@ -37,7 +37,7 @@ const DASH_SPEED := 400
 
 signal force_transition(force_state_str: String)
 
-var health := 15
+@export var health := 15
 
 signal boss_died
 
@@ -60,7 +60,7 @@ func _process(delta: float) -> void:
 		if time_count > 1:
 			time_count = 0
 			
-			print(body_hit_box.get_child(0).disabled)
+			print(health)
 
 func _physics_process(delta: float) -> void:
 	boss_state_machine.process_phy_update(delta)
@@ -71,7 +71,12 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_hurt_box_area_entered(_area: Area2D) -> void:
+	var camera : BossEncounterCamera = get_tree().get_first_node_in_group("cameras")
+	
 	flash_timer.start()
+	
+	camera.freeze_time(0.6, 0.03)
+	
 	sprite_2d.use_parent_material = false
 	
 	await flash_timer.timeout
@@ -346,8 +351,16 @@ func _physics_process4stun(delta: float) -> void:
 #region die state
 
 func enter_die() -> void:
+	reset_velocitiy()
+	hurt_box.get_child(0).disabled = true
+	
 	animation_player.play("die")
 	boss_died.emit()
+
+func camera_shake4die() -> void:
+	var camera : BossEncounterCamera = get_tree().get_first_node_in_group("cameras")
+	camera.shake_big()
+	camera.freeze_time(0.3, 0.3)
 
 #endregion die state
 
