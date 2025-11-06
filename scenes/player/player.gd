@@ -58,6 +58,9 @@ var hurt_direction := 0 # 0表示没有受击，±1表示水平受击方向
 
 @onready var down_smash_spawner: DownSmashSpawner = $DownSmashSpawner
 
+@onready var clash_effect_spawner: ClashEffectSpawner = $ClashEffectSpawner
+var is_clashing := false
+
 #endregion 变量与信号
 
 func _ready() -> void:
@@ -72,8 +75,9 @@ func _process(delta: float) -> void:
 		time_count += delta
 		if time_count > 0.1:
 			time_count = 0
-			
-			print(hurt_box.get_child(0).disabled)
+		
+			if self.name == "2" or "3":
+				print(true)
 
 func _physics_process(delta: float) -> void:
 	player_state_machine.process_phy_update(delta)
@@ -216,29 +220,42 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 	force_transition.emit(force_state_str)
 	
 	# 不同的area造成不同的伤害，复杂情况可以用match
-	var v := -1 if area.name == "BodyHitBox" else -2
+	var v := -1 if area.name == "BodyHitBox" else -1
 	update_health(v)
 
-func _on_attack_1_hit_box_area_entered(_area: Area2D) -> void:
-	velocity.x -= sign(direction) * knockback_speed
-	
-	update_soul(1)
+func _on_attack_1_hit_box_area_entered(area: Area2D) -> void:
+	if area.name in ["Attack1HitBox", "Attack2HitBox"]:
+		attck_clash(area)
 
-func _on_attack_2_hit_box_area_entered(_area: Area2D) -> void:
-	velocity.x -= sign(direction) * knockback_speed
-	
-	update_soul(1)
-	
+	else:
+		velocity.x -= sign(direction) * knockback_speed
+		
+		update_soul(1)
 
-func _on_attack_up_hit_box_area_entered(_area: Area2D) -> void:
-	update_soul(1)
+func _on_attack_2_hit_box_area_entered(area: Area2D) -> void:
+	if area.name in ["Attack1HitBox", "Attack2HitBox"]:
+		attck_clash(area)
+	else:
+		velocity.x -= sign(direction) * knockback_speed
+		
+		update_soul(1)
 
 
-func _on_attack_down_hit_box_area_entered(_area: Area2D) -> void:
-	var force_state_str := "AttackJump"
-	force_transition.emit(force_state_str)
-	
-	update_soul(1)
+func _on_attack_up_hit_box_area_entered(area: Area2D) -> void:
+	if area.name in ["Attack1HitBox", "Attack2HitBox"]:
+		attck_clash(area)
+	else:
+		update_soul(1)
+
+
+func _on_attack_down_hit_box_area_entered(area: Area2D) -> void:
+	if area.name in ["Attack1HitBox", "Attack2HitBox"]:
+		attck_clash(area)
+		
+		var force_state_str := "AttackJump"
+		force_transition.emit(force_state_str)
+	else:
+		update_soul(1)
 
 
 #endregion hit & hurt box
@@ -491,5 +508,20 @@ func update_health(v: int) -> void:
 # 改变soul并同步更新UI
 func update_soul(v: int) -> void:
 	Global_HUD.player_soul += v
+
+# 拼刀
+func attck_clash(area: Area2D) -> void:
+	# 碰撞检测时（回调的信号不能修改碰撞检测相关的属性），因此延迟到帧末调用。
+	# 那么帧中甚至clash发生这帧之前先碰撞到hurt_box怎么办？
+	call_deferred("invincible", 0.5)
+	#invincible(0.5)
+	
+	var effect_pos := (global_position + area.global_position) / 2
+	clash_effect_spawner.projectile_data["initial_position"] = effect_pos
+	clash_effect_spawner.spawn_projectile()
+	
+	var camera : BossEncounterCamera = get_tree().get_first_node_in_group("cameras")
+	camera.shake_small()
+	camera.freeze_time(1, 0.1)
 
 #endregion utils

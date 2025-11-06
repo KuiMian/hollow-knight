@@ -15,7 +15,6 @@ func Exit():
 	super.Exit()
 	
 	actor.can_dash = temp_can_dash
-	actor.exit_attack_down()
 
 
 func get_next_state_str() -> String:

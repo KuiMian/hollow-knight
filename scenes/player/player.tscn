@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://jtrxw21anjyo"]
+[gd_scene load_steps=75 format=3 uid="uid://jtrxw21anjyo"]
 
 [ext_resource type="Texture2D" uid="uid://b5bgrdbde1pba" path="res://assets/player/小骑士待机精灵表.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://1s0sytwemc44" path="res://scenes/player/player.gd" id="1_dqkch"]
@@ -48,6 +48,8 @@
 [ext_resource type="Script" uid="uid://dlxowh2snfx7g" path="res://scenes/ProjectileSpawner/Spawners/projectile_spawner.gd" id="39_7obkq"]
 [ext_resource type="Script" uid="uid://bldo4ojxersuw" path="res://scenes/ProjectileSpawner/Spawners/down_smash_spawner.gd" id="47_hyqqp"]
 [ext_resource type="PackedScene" uid="uid://wms13ix2hsoa" path="res://scenes/ProjectileSpawner/Projectiles/player_down_smash.tscn" id="48_ds1xl"]
+[ext_resource type="Script" uid="uid://cx5epqf2tsbs5" path="res://scenes/ProjectileSpawner/Spawners/clash_effect_spawner.gd" id="49_1u1sw"]
+[ext_resource type="PackedScene" uid="uid://c6o2ijfdvv8vw" path="res://scenes/ProjectileSpawner/Projectiles/clash_effect.tscn" id="50_2t3bg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
 size = Vector2(8, 16)
@@ -1830,10 +1832,10 @@ tracks/5/path = NodePath("SpriteArea/Sprite2D:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, -16), Vector2(0, -16)]
+"values": [Vector2(0, -16)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -3332,9 +3334,8 @@ polygon = PackedVector2Array(-4, 0, 4, 0, 4, -16, -4, -16)
 metadata/_edit_lock_ = true
 
 [node name="Attack1HitBox" parent="." groups=["player_boxes"] instance=ExtResource("20_i4ail")]
-visible = false
 collision_layer = 8
-collision_mask = 64
+collision_mask = 96
 metadata/_edit_lock_ = true
 
 [node name="HitBox" parent="Attack1HitBox" index="0"]
@@ -3343,9 +3344,8 @@ disabled = true
 metadata/_edit_lock_ = true
 
 [node name="Attack2HitBox" parent="." groups=["player_boxes"] instance=ExtResource("20_i4ail")]
-visible = false
 collision_layer = 8
-collision_mask = 64
+collision_mask = 96
 metadata/_edit_lock_ = true
 
 [node name="HitBox" parent="Attack2HitBox" index="0"]
@@ -3356,7 +3356,7 @@ metadata/_edit_lock_ = true
 [node name="AttackUpHitBox" parent="." groups=["player_boxes"] instance=ExtResource("20_i4ail")]
 visible = false
 collision_layer = 8
-collision_mask = 64
+collision_mask = 96
 metadata/_edit_lock_ = true
 
 [node name="HitBox" parent="AttackUpHitBox" index="0"]
@@ -3367,7 +3367,7 @@ metadata/_edit_lock_ = true
 [node name="AttackDownHitBox" parent="." groups=["player_boxes"] instance=ExtResource("20_i4ail")]
 visible = false
 collision_layer = 8
-collision_mask = 64
+collision_mask = 96
 metadata/_edit_lock_ = true
 
 [node name="HitBox" parent="AttackDownHitBox" index="0"]
@@ -3397,6 +3397,10 @@ projectile_scene = ExtResource("38_5q8fn")
 [node name="DownSmashSpawner" parent="." instance=ExtResource("34_4hvnv")]
 script = ExtResource("47_hyqqp")
 projectile_scene = ExtResource("48_ds1xl")
+
+[node name="ClashEffectSpawner" parent="." instance=ExtResource("34_4hvnv")]
+script = ExtResource("49_1u1sw")
+projectile_scene = ExtResource("50_2t3bg")
 
 [editable path="HurtBox"]
 [editable path="Attack1HitBox"]

@@ -37,8 +37,12 @@ func spawn_projectile() -> void:
 	actor = get_actor()
 	manager = get_manager()
 	
-	set_direction_data()
-	set_positon_data()
+	# 外部控制可能会在这个函数调用前传入某些定义好的data，要保证外部介入的优先度
+	if not projectile_data.has("initial_direction"):
+		set_direction_data()
+	
+	if not projectile_data.has("initial_position"):
+		set_positon_data()
 	
 	var projectile: Projectile = projectile_scene.instantiate()
 	projectile.load_data(projectile_data)
