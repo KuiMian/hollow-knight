@@ -1470,6 +1470,20 @@ tracks/11/keys = {
 "method": &"release_down_smash"
 }]
 }
+tracks/12/type = "method"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath(".")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.6, true],
+"method": &"invincible"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_dqkch"]
 resource_name = "fall"
@@ -2837,6 +2851,18 @@ tracks/10/path = NodePath("Attack1HitBox/HitBox:disabled")
 tracks/10/interp = 0
 tracks/10/loop_wrap = true
 tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("HurtBox/HurtBox:disabled")
+tracks/11/interp = 0
+tracks/11/loop_wrap = true
+tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,

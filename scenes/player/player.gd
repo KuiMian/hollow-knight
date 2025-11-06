@@ -277,29 +277,28 @@ func enter_hurt() -> void:
 	
 	velocity.x = - hurt_direction * 90
 	
-	invincible()
+	invincible(2, true)
 
 func exit_hurt() -> void:
 	hurt_direction = 0
 
-func invincible() -> void:
-	invincible_timer.wait_time = 2
+func invincible(active_time: float = 2, flash_effect: bool = true) -> void:
+	invincible_timer.wait_time = active_time
 	invincible_timer.one_shot = true
 	invincible_timer.start()
 	
 	(hurt_box.get_child(0) as CollisionPolygon2D).disabled = true
 	
-	while true:
-		# 闪烁
-		(sprite_area.get_child(0) as Sprite2D).visible = false
-		await get_tree().create_timer(0.1).timeout
-		(sprite_area.get_child(0) as Sprite2D).visible = true
-		await get_tree().create_timer(0.1).timeout
-
-		if invincible_timer.is_stopped():
-			(hurt_box.get_child(0) as CollisionPolygon2D).disabled = false
-			break
-
+	if flash_effect:
+		while not invincible_timer.is_stopped():
+			(sprite_area.get_child(0) as Sprite2D).visible = false
+			await get_tree().create_timer(0.1).timeout
+			(sprite_area.get_child(0) as Sprite2D).visible = true
+			await get_tree().create_timer(0.1).timeout
+	else:
+		await invincible_timer.timeout
+	
+	(hurt_box.get_child(0) as CollisionPolygon2D).disabled = false
 
 
 #endregion hurt state
