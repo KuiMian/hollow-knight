@@ -60,7 +60,7 @@ func _process(delta: float) -> void:
 		if time_count > 1:
 			time_count = 0
 			
-			print(health)
+			print(body_hit_box.get_child(0).disabled)
 
 func _physics_process(delta: float) -> void:
 	boss_state_machine.process_phy_update(delta)

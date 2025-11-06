@@ -73,10 +73,7 @@ func _process(delta: float) -> void:
 		if time_count > 0.1:
 			time_count = 0
 			
-			var a = 0
-			a = "右" if last_facing_direction >= 0 else "左"
-				
-			print(" 面朝方向 " , a)
+			print(hurt_box.get_child(0).disabled)
 
 func _physics_process(delta: float) -> void:
 	player_state_machine.process_phy_update(delta)
@@ -162,6 +159,7 @@ func enter_dash() -> void:
 func exit_dash() -> void:
 	if has_black_dash:
 		# 无敌状态优先度高于冲刺
+		# 这个bug发生于无敌状态下黑冲，无敌时间未结束但被黑冲结束设置hurt_disabled=true
 		if invincible_timer.is_stopped():
 			(hurt_box.get_child(0) as CollisionPolygon2D).disabled = false
 	
@@ -299,6 +297,7 @@ func invincible(active_time: float = 2, flash_effect: bool = true) -> void:
 		await invincible_timer.timeout
 	
 	(hurt_box.get_child(0) as CollisionPolygon2D).disabled = false
+	
 
 
 #endregion hurt state
