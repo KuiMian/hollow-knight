@@ -313,6 +313,12 @@ func enter_die1() -> void:
 
 func enter_die2() -> void:
 	animation_player.play("die2")
+	
+	var camera : BossEncounterCamera = get_tree().get_first_node_in_group("cameras")
+	
+	# 感觉通过动画关键帧调用更好
+	await get_tree().create_timer(0.3).timeout  # 延迟0.1秒再抖动
+	camera.shake_big()
 
 #endregion die2 state
 
@@ -335,8 +341,14 @@ func enter_release_shockwave() -> void:
 	reset_velocitiy()
 	
 	animation_player.play("release_shockwave")
-
+	
 	shockwave_spawner.timer.start()
+	
+	var camera : BossEncounterCamera = get_tree().get_first_node_in_group("cameras")
+	
+	# 感觉通过动画关键帧调用更好
+	await get_tree().create_timer(0.3).timeout  # 延迟0.1秒再抖动
+	camera.shake_small()
 
 func release_shockwave() -> void:
 	shockwave_spawner.spawn_projectile()

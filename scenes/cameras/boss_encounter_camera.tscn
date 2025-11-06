@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvuaojxjnpxu6"]
+
+[ext_resource type="Script" uid="uid://dtpcgpdw2xpah" path="res://scenes/cameras/boss_encounter_camera.gd" id="1_dkan1"]
+
+[node name="BossEncounterCamera" type="Camera2D"]
+script = ExtResource("1_dkan1")
